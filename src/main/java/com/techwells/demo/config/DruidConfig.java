@@ -32,8 +32,8 @@ public class DruidConfig {
         ServletRegistrationBean bean=new ServletRegistrationBean(new StatViewServlet(),"/druid/*");
         //设置初始化参数
         Map<String,Object> initParams=new HashMap<>();
-        initParams.put("loginUsername","admin");  //设置登录的用户名
-        initParams.put("loginPassword","admin");  //设置登录的密码
+        initParams.put("loginUsername","demo");  //设置登录的用户名
+        initParams.put("loginPassword","demo");  //设置登录的密码
         initParams.put("resetEnable","false");
 //        initParams.put("allow","localhost");  //允许localhost访问，默认是所有都能访问
 //        initParams.put("deny","IP地址");  //设置拒绝访问的ip
