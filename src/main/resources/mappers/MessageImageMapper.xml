@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.MessageImageMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.MessageImage" >
+    <id column="message_image_id" property="messageImageId" jdbcType="INTEGER" />
+    <result column="message_id" property="messageId" jdbcType="INTEGER" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    message_image_id, message_id, image_url, activated, deleted, created_date, updated_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_message_image
+    where message_image_id = #{messageImageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_message_image
+    where message_image_id = #{messageImageId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.MessageImage" >
+    <selectKey resultType="java.lang.Integer" keyProperty="messageImageId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_message_image (message_id, image_url, activated, 
+      deleted, created_date, updated_date
+      )
+    values (#{messageId,jdbcType=INTEGER}, #{imageUrl,jdbcType=VARCHAR}, #{activated,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=INTEGER}, #{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.MessageImage" >
+    <selectKey resultType="java.lang.Integer" keyProperty="messageImageId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_message_image
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        message_id,
+      </if>
+      <if test="imageUrl != null" >
+        image_url,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        #{messageId,jdbcType=INTEGER},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.MessageImage" >
+    update t_message_image
+    <set >
+      <if test="messageId != null" >
+        message_id = #{messageId,jdbcType=INTEGER},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where message_image_id = #{messageImageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.MessageImage" >
+    update t_message_image
+    set message_id = #{messageId,jdbcType=INTEGER},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+    where message_image_id = #{messageImageId,jdbcType=INTEGER}
+  </update>
+  
+   <delete id="deleteByNewsId" parameterType="java.lang.Integer" >
+    delete from t_message_image
+    where news_id = #{newsId,jdbcType=INTEGER}
+  </delete>
+  
+</mapper>

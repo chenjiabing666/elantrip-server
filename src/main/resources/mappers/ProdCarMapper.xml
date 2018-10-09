@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.ProdCarMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.ProdCar" >
+    <id column="prod_car_id" property="prodCarId" jdbcType="INTEGER" />
+    <result column="car_type" property="carType" jdbcType="INTEGER" />
+    <result column="prod_id" property="prodId" jdbcType="INTEGER" />
+    <result column="car_location" property="carLocation" jdbcType="INTEGER" />
+    <result column="per_down" property="perDown" jdbcType="INTEGER" />
+    <result column="per_up" property="perUp" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="activated" property="activated" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    prod_car_id, car_type, prod_id, car_location, per_down, per_up, price, activated, 
+    deleted, updated_date, created_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_prod_car
+    where prod_car_id = #{prodCarId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_prod_car
+    where prod_car_id = #{prodCarId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.ProdCar" >
+    <selectKey resultType="java.lang.Integer" keyProperty="prodCarId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_prod_car (car_type, prod_id, car_location, 
+      per_down, per_up, price, 
+      activated, deleted, updated_date, 
+      created_date)
+    values (#{carType,jdbcType=INTEGER}, #{prodId,jdbcType=INTEGER}, #{carLocation,jdbcType=INTEGER}, 
+      #{perDown,jdbcType=INTEGER}, #{perUp,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, 
+      #{activated,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, #{updatedDate,jdbcType=TIMESTAMP}, 
+      #{createdDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.ProdCar" >
+    <selectKey resultType="java.lang.Integer" keyProperty="prodCarId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_prod_car
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="carType != null" >
+        car_type,
+      </if>
+      <if test="prodId != null" >
+        prod_id,
+      </if>
+      <if test="carLocation != null" >
+        car_location,
+      </if>
+      <if test="perDown != null" >
+        per_down,
+      </if>
+      <if test="perUp != null" >
+        per_up,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="carType != null" >
+        #{carType,jdbcType=INTEGER},
+      </if>
+      <if test="prodId != null" >
+        #{prodId,jdbcType=INTEGER},
+      </if>
+      <if test="carLocation != null" >
+        #{carLocation,jdbcType=INTEGER},
+      </if>
+      <if test="perDown != null" >
+        #{perDown,jdbcType=INTEGER},
+      </if>
+      <if test="perUp != null" >
+        #{perUp,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.ProdCar" >
+    update t_prod_car
+    <set >
+      <if test="carType != null" >
+        car_type = #{carType,jdbcType=INTEGER},
+      </if>
+      <if test="prodId != null" >
+        prod_id = #{prodId,jdbcType=INTEGER},
+      </if>
+      <if test="carLocation != null" >
+        car_location = #{carLocation,jdbcType=INTEGER},
+      </if>
+      <if test="perDown != null" >
+        per_down = #{perDown,jdbcType=INTEGER},
+      </if>
+      <if test="perUp != null" >
+        per_up = #{perUp,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where prod_car_id = #{prodCarId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.ProdCar" >
+    update t_prod_car
+    set car_type = #{carType,jdbcType=INTEGER},
+      prod_id = #{prodId,jdbcType=INTEGER},
+      car_location = #{carLocation,jdbcType=INTEGER},
+      per_down = #{perDown,jdbcType=INTEGER},
+      per_up = #{perUp,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
+      activated = #{activated,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
+    where prod_car_id = #{prodCarId,jdbcType=INTEGER}
+  </update>
+</mapper>

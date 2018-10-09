@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.ProdStockMapper">
+	<resultMap id="BaseResultMap"
+		type="com.yilan.elantrip.domain.ProdStock">
+		<id column="stock_id" property="stockId" jdbcType="INTEGER" />
+		<result column="prod_id" property="prodId" jdbcType="INTEGER" />
+		<result column="stock_date" property="stockDate"
+			jdbcType="DATE" />
+		<result column="month" property="month" jdbcType="VARCHAR" />
+		<result column="year" property="year" jdbcType="VARCHAR" />
+		<result column="day" property="day" jdbcType="VARCHAR" />
+		<result column="total" property="total" jdbcType="INTEGER" />
+		<result column="sold" property="sold" jdbcType="INTEGER" />
+		<result column="down_price" property="downPrice"
+			jdbcType="DOUBLE" />
+		<result column="p_type" property="pType" jdbcType="INTEGER" />
+		<result column="activated" property="activated"
+			jdbcType="INTEGER" />
+		<result column="deleted" property="deleted" jdbcType="INTEGER" />
+		<result column="updated_date" property="updatedDate"
+			jdbcType="TIMESTAMP" />
+		<result column="created_date" property="createdDate"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		stock_id, prod_id, stock_date, month, year, day, total, sold, down_price,
+		p_type,
+		activated, deleted, updated_date, created_date
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_prod_stock
+		where stock_id = #{stockId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_prod_stock
+		where stock_id = #{stockId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.yilan.elantrip.domain.ProdStock">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="stockId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_prod_stock (prod_id, stock_date, month,
+		year, day, total, sold,
+		down_price, p_type, activated,
+		deleted, updated_date, created_date
+		)
+		values (#{prodId,jdbcType=INTEGER}, #{stockDate,jdbcType=DATE},
+		#{month,jdbcType=VARCHAR},
+		#{year,jdbcType=VARCHAR}, #{day,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER},
+		#{sold,jdbcType=INTEGER},
+		#{downPrice,jdbcType=DOUBLE}, #{pType,jdbcType=INTEGER}, #{activated,jdbcType=INTEGER},
+		#{deleted,jdbcType=INTEGER}, #{updatedDate,jdbcType=TIMESTAMP},
+		#{createdDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.yilan.elantrip.domain.ProdStock">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="stockId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_prod_stock
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="prodId != null">
+				prod_id,
+			</if>
+			<if test="stockDate != null">
+				stock_date,
+			</if>
+			<if test="month != null">
+				month,
+			</if>
+			<if test="year != null">
+				year,
+			</if>
+			<if test="day != null">
+				day,
+			</if>
+			<if test="total != null">
+				total,
+			</if>
+			<if test="sold != null">
+				sold,
+			</if>
+			<if test="downPrice != null">
+				down_price,
+			</if>
+			<if test="pType != null">
+				p_type,
+			</if>
+			<if test="activated != null">
+				activated,
+			</if>
+			<if test="deleted != null">
+				deleted,
+			</if>
+			<if test="updatedDate != null">
+				updated_date,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="prodId != null">
+				#{prodId,jdbcType=INTEGER},
+			</if>
+			<if test="stockDate != null">
+				#{stockDate,jdbcType=DATE},
+			</if>
+			<if test="month != null">
+				#{month,jdbcType=VARCHAR},
+			</if>
+			<if test="year != null">
+				#{year,jdbcType=VARCHAR},
+			</if>
+			<if test="day != null">
+				#{day,jdbcType=VARCHAR},
+			</if>
+			<if test="total != null">
+				#{total,jdbcType=INTEGER},
+			</if>
+			<if test="sold != null">
+				#{sold,jdbcType=INTEGER},
+			</if>
+			<if test="downPrice != null">
+				#{downPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="pType != null">
+				#{pType,jdbcType=INTEGER},
+			</if>
+			<if test="activated != null">
+				#{activated,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="updatedDate != null">
+				#{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.yilan.elantrip.domain.ProdStock">
+		update t_prod_stock
+		<set>
+			<if test="prodId != null">
+				prod_id = #{prodId,jdbcType=INTEGER},
+			</if>
+			<if test="stockDate != null">
+				stock_date = #{stockDate,jdbcType=DATE},
+			</if>
+			<if test="month != null">
+				month = #{month,jdbcType=VARCHAR},
+			</if>
+			<if test="year != null">
+				year = #{year,jdbcType=VARCHAR},
+			</if>
+			<if test="day != null">
+				day = #{day,jdbcType=VARCHAR},
+			</if>
+			<if test="total != null">
+				total = #{total,jdbcType=INTEGER},
+			</if>
+			<if test="sold != null">
+				sold = #{sold,jdbcType=INTEGER},
+			</if>
+			<if test="downPrice != null">
+				down_price = #{downPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="pType != null">
+				p_type = #{pType,jdbcType=INTEGER},
+			</if>
+			<if test="activated != null">
+				activated = #{activated,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				deleted = #{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="updatedDate != null">
+				updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where stock_id = #{stockId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.yilan.elantrip.domain.ProdStock">
+		update t_prod_stock
+		set prod_id = #{prodId,jdbcType=INTEGER},
+		stock_date = #{stockDate,jdbcType=DATE},
+		month = #{month,jdbcType=VARCHAR},
+		year = #{year,jdbcType=VARCHAR},
+		day = #{day,jdbcType=VARCHAR},
+		total = #{total,jdbcType=INTEGER},
+		sold = #{sold,jdbcType=INTEGER},
+		down_price = #{downPrice,jdbcType=DOUBLE},
+		p_type = #{pType,jdbcType=INTEGER},
+		activated = #{activated,jdbcType=INTEGER},
+		deleted = #{deleted,jdbcType=INTEGER},
+		updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+		created_date = #{createdDate,jdbcType=TIMESTAMP}
+		where stock_id = #{stockId,jdbcType=INTEGER}
+	</update>
+	<!-- 批量插入 -->
+	<insert id="insertBatchStock" parameterType="java.util.List">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="stockId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_prod_stock
+		(prod_id,month,year,day,total,sold,down_price,p_type,
+		created_date)
+		values
+		<foreach collection="stockList" item="item" index="index"
+			separator=",">
+			(
+			#{item.prodId,jdbcType=INTEGER},
+			#{item.month,jdbcType=VARCHAR},
+			#{item.year,jdbcType=VARCHAR},
+			#{item.day,jdbcType=VARCHAR},
+			#{item.total,jdbcType=INTEGER},
+			#{item.sold,jdbcType=INTEGER},
+			#{item.downPrice,jdbcType=DOUBLE},
+			#{item.pType,jdbcType=INTEGER},
+			#{item.createDated,jdbcType=TIMESTAMP}
+			)
+		</foreach>
+	</insert>
+	<select id="selectByProdId" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select *
+		from t_prod_stock
+		where prod_id = #{productId,jdbcType=INTEGER}
+	</select>
+</mapper>

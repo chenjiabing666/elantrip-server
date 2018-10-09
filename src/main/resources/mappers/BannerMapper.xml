@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.BannerMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.Banner" >
+    <id column="banner_id" property="bannerId" jdbcType="INTEGER" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="location_url" property="locationUrl" jdbcType="VARCHAR" />
+    <result column="sort_index" property="sortIndex" jdbcType="INTEGER" />
+    <result column="jump_url" property="jumpUrl" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="INTEGER" />
+    <result column="banner_type" property="bannerType" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="INTEGER" />
+    <result column="top" property="top" jdbcType="INTEGER" />
+    <result column="top_time" property="topTime" jdbcType="TIMESTAMP" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    banner_id, image_url, location_url, sort_index, jump_url, location, banner_type, 
+    description, activated, top, top_time, deleted, created_date, updated_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_banner
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_banner
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.Banner" >
+    <selectKey resultType="java.lang.Integer" keyProperty="bannerId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_banner (image_url, location_url, sort_index, 
+      jump_url, location, banner_type, 
+      description, activated, top, 
+      top_time, deleted, created_date, 
+      updated_date)
+    values (#{imageUrl,jdbcType=VARCHAR}, #{locationUrl,jdbcType=VARCHAR}, #{sortIndex,jdbcType=INTEGER}, 
+      #{jumpUrl,jdbcType=VARCHAR}, #{location,jdbcType=INTEGER}, #{bannerType,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR}, #{activated,jdbcType=INTEGER}, #{top,jdbcType=INTEGER}, 
+      #{topTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}, #{createdDate,jdbcType=TIMESTAMP}, 
+      #{updatedDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.Banner" >
+    <selectKey resultType="java.lang.Integer" keyProperty="bannerId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_banner
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="imageUrl != null" >
+        image_url,
+      </if>
+      <if test="locationUrl != null" >
+        location_url,
+      </if>
+      <if test="sortIndex != null" >
+        sort_index,
+      </if>
+      <if test="jumpUrl != null" >
+        jump_url,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="bannerType != null" >
+        banner_type,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="top != null" >
+        top,
+      </if>
+      <if test="topTime != null" >
+        top_time,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="locationUrl != null" >
+        #{locationUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sortIndex != null" >
+        #{sortIndex,jdbcType=INTEGER},
+      </if>
+      <if test="jumpUrl != null" >
+        #{jumpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=INTEGER},
+      </if>
+      <if test="bannerType != null" >
+        #{bannerType,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="top != null" >
+        #{top,jdbcType=INTEGER},
+      </if>
+      <if test="topTime != null" >
+        #{topTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.Banner" >
+    update t_banner
+    <set >
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="locationUrl != null" >
+        location_url = #{locationUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sortIndex != null" >
+        sort_index = #{sortIndex,jdbcType=INTEGER},
+      </if>
+      <if test="jumpUrl != null" >
+        jump_url = #{jumpUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=INTEGER},
+      </if>
+      <if test="bannerType != null" >
+        banner_type = #{bannerType,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="top != null" >
+        top = #{top,jdbcType=INTEGER},
+      </if>
+      <if test="topTime != null" >
+        top_time = #{topTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.Banner" >
+    update t_banner
+    set image_url = #{imageUrl,jdbcType=VARCHAR},
+      location_url = #{locationUrl,jdbcType=VARCHAR},
+      sort_index = #{sortIndex,jdbcType=INTEGER},
+      jump_url = #{jumpUrl,jdbcType=VARCHAR},
+      location = #{location,jdbcType=INTEGER},
+      banner_type = #{bannerType,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=INTEGER},
+      top = #{top,jdbcType=INTEGER},
+      top_time = #{topTime,jdbcType=TIMESTAMP},      deleted = #{deleted,jdbcType=INTEGER},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </update>
+    <update id="modifyBanner" parameterType="com.yilan.elantrip.domain.Banner" >
+    update t_banner
+    set image_url = #{imageUrl,jdbcType=VARCHAR},
+      location_url = #{locationUrl,jdbcType=VARCHAR},
+      jump_url = #{jumpUrl,jdbcType=VARCHAR},
+      location = #{location,jdbcType=INTEGER},
+      banner_type = #{bannerType,jdbcType=INTEGER},
+      activated = #{activated,jdbcType=INTEGER},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+    where banner_id = #{bannerId,jdbcType=INTEGER}
+  </update>
+  <select id="countTotal" resultType="java.lang.Integer">
+		select count(banner_id) from
+		t_banner
+  </select>
+  
+  <select id="selectBannerList" resultMap="BaseResultMap">
+		select banner_id,banner_type,location_url,jump_url,image_url,location,activated,created_date from t_banner
+		
+		limit #{startNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+ 
+  
+</mapper>

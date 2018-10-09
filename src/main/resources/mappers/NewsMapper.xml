@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.NewsMapper">
+	<resultMap id="BaseResultMap"
+		type="com.yilan.elantrip.domain.News">
+		<id column="news_id" property="newsId" jdbcType="INTEGER" />
+		<result column="news_title" property="newsTitle"
+			jdbcType="VARCHAR" />
+		<result column="news_type" property="newsType"
+			jdbcType="INTEGER" />
+		<result column="news_conent" property="newsConent"
+			jdbcType="VARCHAR" />
+		<result column="admin_name" property="adminName"
+			jdbcType="VARCHAR" />
+		<result column="activated" property="activated"
+			jdbcType="INTEGER" />
+		<result column="deleted" property="deleted" jdbcType="INTEGER" />
+		<result column="updated_date" property="updatedDate"
+			jdbcType="TIMESTAMP" />
+		<result column="created_date" property="createdDate"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<resultMap id="RSnews"
+		type="com.yilan.elantrip.domain.rs.RSnewsImage">
+		<result column="news_title" property="newsTitle" />
+		<result column="news_type" property="newsType" />
+		<result column="news_conent" property="newsConent" />
+		<result column="admin_name" property="adminName" />
+		<result column="activated" property="activated" />
+		<result column="created_date" property="createdDate" />
+		<collection property="newsImages"
+			ofType="com.yilan.elantrip.domain.NewsImage">
+			<result column="image_url" property="imageUrl" />
+		</collection>
+	</resultMap>
+	<sql id="Base_Column_List">
+		news_id, news_title, news_type, news_conent, admin_name, activated, deleted,
+		updated_date,
+		created_date
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_news
+		where news_id = #{newsId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_news
+		where news_id = #{newsId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.yilan.elantrip.domain.News">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="newsId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_news (news_title, news_type, news_conent,
+		admin_name, activated, deleted,
+		updated_date, created_date)
+		values (#{newsTitle,jdbcType=VARCHAR}, #{newsType,jdbcType=INTEGER},
+		#{newsConent,jdbcType=VARCHAR},
+		#{adminName,jdbcType=VARCHAR}, #{activated,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER},
+		#{updatedDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.yilan.elantrip.domain.News">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="newsId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_news
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="newsTitle != null">
+				news_title,
+			</if>
+			<if test="newsType != null">
+				news_type,
+			</if>
+			<if test="newsConent != null">
+				news_conent,
+			</if>
+			<if test="adminName != null">
+				admin_name,
+			</if>
+			<if test="activated != null">
+				activated,
+			</if>
+			<if test="deleted != null">
+				deleted,
+			</if>
+			<if test="updatedDate != null">
+				updated_date,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="newsTitle != null">
+				#{newsTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="newsType != null">
+				#{newsType,jdbcType=INTEGER},
+			</if>
+			<if test="newsConent != null">
+				#{newsConent,jdbcType=VARCHAR},
+			</if>
+			<if test="adminName != null">
+				#{adminName,jdbcType=VARCHAR},
+			</if>
+			<if test="activated != null">
+				#{activated,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="updatedDate != null">
+				#{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.yilan.elantrip.domain.News">
+		update t_news
+		<set>
+			<if test="newsTitle != null">
+				news_title = #{newsTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="newsType != null">
+				news_type = #{newsType,jdbcType=INTEGER},
+			</if>
+			<if test="newsConent != null">
+				news_conent = #{newsConent,jdbcType=VARCHAR},
+			</if>
+			<if test="adminName != null">
+				admin_name = #{adminName,jdbcType=VARCHAR},
+			</if>
+			<if test="activated != null">
+				activated = #{activated,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				deleted = #{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="updatedDate != null">
+				updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where news_id = #{newsId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.yilan.elantrip.domain.News">
+		update t_news
+		set news_title = #{newsTitle,jdbcType=VARCHAR},
+		news_type = #{newsType,jdbcType=INTEGER},
+		news_conent = #{newsConent,jdbcType=VARCHAR},
+		admin_name = #{adminName,jdbcType=VARCHAR},
+		activated = #{activated,jdbcType=INTEGER},
+		deleted = #{deleted,jdbcType=INTEGER},
+		updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+		created_date = #{createdDate,jdbcType=TIMESTAMP}
+		where news_id = #{newsId,jdbcType=INTEGER}
+	</update>
+	<select id="countTotal" resultType="java.lang.Integer">
+		SELECT count(*) FROM t_news
+		<where>
+			<if test="params.newsTitle!=null and params.newsTitle!=''">
+				and news_title like "%"#{params.newsTitle,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="params.newsType!=null and params.newsType!=''">
+				and news_type = #{params.newsType,jdbcType=INTEGER}
+			</if>
+			<if test="params.adminName!=null and params.adminName!=''">
+				and admin_name = #{params.adminName,jdbcType=VARCHAR}
+			</if>
+			<if test="params.activated!=null and params.activated!=''">
+				and activated = #{params.activated,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectNewsList" resultMap="BaseResultMap">
+		SELECT
+		news_id,
+		news_title,
+		news_type,
+		admin_name,
+		created_date,
+		activated
+		FROM t_news
+		<where>
+			<if test="params.newsTitle!=null and params.newsTitle!=''">
+				and news_title like "%"#{params.newsTitle,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="params.newsType!=null and params.newsType!=''">
+				and news_type = #{params.newsType,jdbcType=INTEGER}
+			</if>
+			<if test="params.adminName!=null and params.adminName!=''">
+				and admin_name = #{params.adminName,,jdbcType=VARCHAR}
+			</if>
+			<if test="params.activated!=null and params.activated!=''">
+				and activated = #{params.activated,jdbcType=INTEGER}
+			</if>
+		</where>
+		limit #{startNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectNewsDetail" resultMap="RSnews">
+		SELECT
+		n.news_title,
+		n.news_type,
+		n.news_conent,
+		n.admin_name,
+		n.activated,
+		n.created_date,
+		ni.image_url
+		FROM
+		t_news n,
+		t_news_image ni
+		where
+		n.news_id = ni.news_id
+		and n.news_id = #{newsId}
+	</select>
+
+</mapper>

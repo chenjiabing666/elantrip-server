@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.ProdPinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.ProdPinfo" >
+    <id column="pinfo_id" property="pinfoId" jdbcType="INTEGER" />
+    <result column="prod_id" property="prodId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="age_up" property="ageUp" jdbcType="INTEGER" />
+    <result column="age_down" property="ageDown" jdbcType="INTEGER" />
+    <result column="age_is_up" property="ageIsUp" jdbcType="INTEGER" />
+    <result column="age_is_down" property="ageIsDown" jdbcType="INTEGER" />
+    <result column="height_down" property="heightDown" jdbcType="INTEGER" />
+    <result column="height_up" property="heightUp" jdbcType="INTEGER" />
+    <result column="h_is_up" property="hIsUp" jdbcType="INTEGER" />
+    <result column="h_is_down" property="hIsDown" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="is_join" property="isJoin" jdbcType="INTEGER" />
+    <result column="is_alone" property="isAlone" jdbcType="INTEGER" />
+    <result column="is_free" property="isFree" jdbcType="INTEGER" />
+    <result column="is_incl_ticket" property="isInclTicket" jdbcType="INTEGER" />
+    <result column="special_remark" property="specialRemark" jdbcType="VARCHAR" />
+    <result column="is_incl_car" property="isInclCar" jdbcType="INTEGER" />
+    <result column="car_money" property="carMoney" jdbcType="VARCHAR" />
+    <result column="project_type" property="projectType" jdbcType="VARCHAR" />
+    <result column="not_pro_name" property="notProName" jdbcType="VARCHAR" />
+    <result column="not_join_pro_name" property="notJoinProName" jdbcType="VARCHAR" />
+    <result column="only_pro_name" property="onlyProName" jdbcType="VARCHAR" />
+    <result column="only_age" property="onlyAge" jdbcType="INTEGER" />
+    <result column="activated" property="activated" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pinfo_id, prod_id, type, age_up, age_down, age_is_up, age_is_down, height_down, height_up, 
+    h_is_up, h_is_down, remark, is_join, is_alone, is_free, is_incl_ticket, special_remark, 
+    is_incl_car, car_money, project_type, not_pro_name, not_join_pro_name, only_pro_name, 
+    only_age, activated, deleted, updated_date, created_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_prod_pinfo
+    where pinfo_id = #{pinfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_prod_pinfo
+    where pinfo_id = #{pinfoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.ProdPinfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="pinfoId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_prod_pinfo (prod_id, type, age_up, 
+      age_down, age_is_up, age_is_down, 
+      height_down, height_up, h_is_up, 
+      h_is_down, remark, is_join, 
+      is_alone, is_free, is_incl_ticket, 
+      special_remark, is_incl_car, car_money, 
+      project_type, not_pro_name, not_join_pro_name, 
+      only_pro_name, only_age, activated, 
+      deleted, updated_date, created_date
+      )
+    values (#{prodId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{ageUp,jdbcType=INTEGER}, 
+      #{ageDown,jdbcType=INTEGER}, #{ageIsUp,jdbcType=INTEGER}, #{ageIsDown,jdbcType=INTEGER}, 
+      #{heightDown,jdbcType=INTEGER}, #{heightUp,jdbcType=INTEGER}, #{hIsUp,jdbcType=INTEGER}, 
+      #{hIsDown,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{isJoin,jdbcType=INTEGER}, 
+      #{isAlone,jdbcType=INTEGER}, #{isFree,jdbcType=INTEGER}, #{isInclTicket,jdbcType=INTEGER}, 
+      #{specialRemark,jdbcType=VARCHAR}, #{isInclCar,jdbcType=INTEGER}, #{carMoney,jdbcType=VARCHAR}, 
+      #{projectType,jdbcType=VARCHAR}, #{notProName,jdbcType=VARCHAR}, #{notJoinProName,jdbcType=VARCHAR}, 
+      #{onlyProName,jdbcType=VARCHAR}, #{onlyAge,jdbcType=INTEGER}, #{activated,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=INTEGER}, #{updatedDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.ProdPinfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="pinfoId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_prod_pinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="prodId != null" >
+        prod_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="ageUp != null" >
+        age_up,
+      </if>
+      <if test="ageDown != null" >
+        age_down,
+      </if>
+      <if test="ageIsUp != null" >
+        age_is_up,
+      </if>
+      <if test="ageIsDown != null" >
+        age_is_down,
+      </if>
+      <if test="heightDown != null" >
+        height_down,
+      </if>
+      <if test="heightUp != null" >
+        height_up,
+      </if>
+      <if test="hIsUp != null" >
+        h_is_up,
+      </if>
+      <if test="hIsDown != null" >
+        h_is_down,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="isJoin != null" >
+        is_join,
+      </if>
+      <if test="isAlone != null" >
+        is_alone,
+      </if>
+      <if test="isFree != null" >
+        is_free,
+      </if>
+      <if test="isInclTicket != null" >
+        is_incl_ticket,
+      </if>
+      <if test="specialRemark != null" >
+        special_remark,
+      </if>
+      <if test="isInclCar != null" >
+        is_incl_car,
+      </if>
+      <if test="carMoney != null" >
+        car_money,
+      </if>
+      <if test="projectType != null" >
+        project_type,
+      </if>
+      <if test="notProName != null" >
+        not_pro_name,
+      </if>
+      <if test="notJoinProName != null" >
+        not_join_pro_name,
+      </if>
+      <if test="onlyProName != null" >
+        only_pro_name,
+      </if>
+      <if test="onlyAge != null" >
+        only_age,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="prodId != null" >
+        #{prodId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="ageUp != null" >
+        #{ageUp,jdbcType=INTEGER},
+      </if>
+      <if test="ageDown != null" >
+        #{ageDown,jdbcType=INTEGER},
+      </if>
+      <if test="ageIsUp != null" >
+        #{ageIsUp,jdbcType=INTEGER},
+      </if>
+      <if test="ageIsDown != null" >
+        #{ageIsDown,jdbcType=INTEGER},
+      </if>
+      <if test="heightDown != null" >
+        #{heightDown,jdbcType=INTEGER},
+      </if>
+      <if test="heightUp != null" >
+        #{heightUp,jdbcType=INTEGER},
+      </if>
+      <if test="hIsUp != null" >
+        #{hIsUp,jdbcType=INTEGER},
+      </if>
+      <if test="hIsDown != null" >
+        #{hIsDown,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isJoin != null" >
+        #{isJoin,jdbcType=INTEGER},
+      </if>
+      <if test="isAlone != null" >
+        #{isAlone,jdbcType=INTEGER},
+      </if>
+      <if test="isFree != null" >
+        #{isFree,jdbcType=INTEGER},
+      </if>
+      <if test="isInclTicket != null" >
+        #{isInclTicket,jdbcType=INTEGER},
+      </if>
+      <if test="specialRemark != null" >
+        #{specialRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="isInclCar != null" >
+        #{isInclCar,jdbcType=INTEGER},
+      </if>
+      <if test="carMoney != null" >
+        #{carMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="projectType != null" >
+        #{projectType,jdbcType=VARCHAR},
+      </if>
+      <if test="notProName != null" >
+        #{notProName,jdbcType=VARCHAR},
+      </if>
+      <if test="notJoinProName != null" >
+        #{notJoinProName,jdbcType=VARCHAR},
+      </if>
+      <if test="onlyProName != null" >
+        #{onlyProName,jdbcType=VARCHAR},
+      </if>
+      <if test="onlyAge != null" >
+        #{onlyAge,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.ProdPinfo" >
+    update t_prod_pinfo
+    <set >
+      <if test="prodId != null" >
+        prod_id = #{prodId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="ageUp != null" >
+        age_up = #{ageUp,jdbcType=INTEGER},
+      </if>
+      <if test="ageDown != null" >
+        age_down = #{ageDown,jdbcType=INTEGER},
+      </if>
+      <if test="ageIsUp != null" >
+        age_is_up = #{ageIsUp,jdbcType=INTEGER},
+      </if>
+      <if test="ageIsDown != null" >
+        age_is_down = #{ageIsDown,jdbcType=INTEGER},
+      </if>
+      <if test="heightDown != null" >
+        height_down = #{heightDown,jdbcType=INTEGER},
+      </if>
+      <if test="heightUp != null" >
+        height_up = #{heightUp,jdbcType=INTEGER},
+      </if>
+      <if test="hIsUp != null" >
+        h_is_up = #{hIsUp,jdbcType=INTEGER},
+      </if>
+      <if test="hIsDown != null" >
+        h_is_down = #{hIsDown,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isJoin != null" >
+        is_join = #{isJoin,jdbcType=INTEGER},
+      </if>
+      <if test="isAlone != null" >
+        is_alone = #{isAlone,jdbcType=INTEGER},
+      </if>
+      <if test="isFree != null" >
+        is_free = #{isFree,jdbcType=INTEGER},
+      </if>
+      <if test="isInclTicket != null" >
+        is_incl_ticket = #{isInclTicket,jdbcType=INTEGER},
+      </if>
+      <if test="specialRemark != null" >
+        special_remark = #{specialRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="isInclCar != null" >
+        is_incl_car = #{isInclCar,jdbcType=INTEGER},
+      </if>
+      <if test="carMoney != null" >
+        car_money = #{carMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="projectType != null" >
+        project_type = #{projectType,jdbcType=VARCHAR},
+      </if>
+      <if test="notProName != null" >
+        not_pro_name = #{notProName,jdbcType=VARCHAR},
+      </if>
+      <if test="notJoinProName != null" >
+        not_join_pro_name = #{notJoinProName,jdbcType=VARCHAR},
+      </if>
+      <if test="onlyProName != null" >
+        only_pro_name = #{onlyProName,jdbcType=VARCHAR},
+      </if>
+      <if test="onlyAge != null" >
+        only_age = #{onlyAge,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pinfo_id = #{pinfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.ProdPinfo" >
+    update t_prod_pinfo
+    set prod_id = #{prodId,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      age_up = #{ageUp,jdbcType=INTEGER},
+      age_down = #{ageDown,jdbcType=INTEGER},
+      age_is_up = #{ageIsUp,jdbcType=INTEGER},
+      age_is_down = #{ageIsDown,jdbcType=INTEGER},
+      height_down = #{heightDown,jdbcType=INTEGER},
+      height_up = #{heightUp,jdbcType=INTEGER},
+      h_is_up = #{hIsUp,jdbcType=INTEGER},
+      h_is_down = #{hIsDown,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_join = #{isJoin,jdbcType=INTEGER},
+      is_alone = #{isAlone,jdbcType=INTEGER},
+      is_free = #{isFree,jdbcType=INTEGER},
+      is_incl_ticket = #{isInclTicket,jdbcType=INTEGER},
+      special_remark = #{specialRemark,jdbcType=VARCHAR},
+      is_incl_car = #{isInclCar,jdbcType=INTEGER},
+      car_money = #{carMoney,jdbcType=VARCHAR},
+      project_type = #{projectType,jdbcType=VARCHAR},
+      not_pro_name = #{notProName,jdbcType=VARCHAR},
+      not_join_pro_name = #{notJoinProName,jdbcType=VARCHAR},
+      only_pro_name = #{onlyProName,jdbcType=VARCHAR},
+      only_age = #{onlyAge,jdbcType=INTEGER},
+      activated = #{activated,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
+    where pinfo_id = #{pinfoId,jdbcType=INTEGER}
+  </update>
+</mapper>

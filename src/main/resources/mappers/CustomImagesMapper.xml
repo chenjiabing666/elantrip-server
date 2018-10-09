@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.CustomImagesMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.CustomImages" >
+    <id column="image_id" property="imageId" jdbcType="INTEGER" />
+    <result column="app_id" property="appId" jdbcType="INTEGER" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    image_id, app_id, image_url, activated, deleted, created_date, updated_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_custom_image
+    where image_id = #{imageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_custom_image
+    where image_id = #{imageId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.CustomImages" >
+    <selectKey resultType="java.lang.Integer" keyProperty="imageId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_custom_image (app_id, image_url, activated, 
+      deleted, created_date, updated_date
+      )
+    values (#{appId,jdbcType=INTEGER}, #{imageUrl,jdbcType=VARCHAR}, #{activated,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=INTEGER}, #{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.CustomImages" >
+    <selectKey resultType="java.lang.Integer" keyProperty="imageId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_custom_image
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="appId != null" >
+        app_id,
+      </if>
+      <if test="imageUrl != null" >
+        image_url,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="appId != null" >
+        #{appId,jdbcType=INTEGER},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.CustomImages" >
+    update t_custom_image
+    <set >
+      <if test="appId != null" >
+        app_id = #{appId,jdbcType=INTEGER},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where image_id = #{imageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.CustomImages" >
+    update t_custom_image
+    set app_id = #{appId,jdbcType=INTEGER},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+    where image_id = #{imageId,jdbcType=INTEGER}
+  </update>
+  
+  <insert id="addImages" parameterType="java.util.List">
+		<selectKey resultType="java.lang.Integer" keyProperty="imageId"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_custom_image
+		(image_id,image_url,
+		created_date)
+		values
+		<foreach collection="imageList" item="item" index="index"
+			separator=",">
+			(
+			#{item.imageId,jdbcType=INTEGER},
+			#{item.imageUrl,jdbcType=VARCHAR},
+			#{item.createDated,jdbcType=TIMESTAMP}
+			)
+		</foreach>
+	</insert>
+	
+	
+</mapper>

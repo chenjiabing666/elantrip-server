@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.CustomTravelersMapper">
+	<resultMap id="BaseResultMap"
+		type="com.yilan.elantrip.domain.CustomTravelers">
+		<id column="traveler_id" property="travelerId" jdbcType="INTEGER" />
+		<result column="custom_id" property="customId"
+			jdbcType="INTEGER" />
+		<result column="cn_name" property="cnName" jdbcType="VARCHAR" />
+		<result column="eg_name" property="egName" jdbcType="VARCHAR" />
+		<result column="nation" property="nation" jdbcType="VARCHAR" />
+		<result column="expire_date" property="expireDate"
+			jdbcType="TIMESTAMP" />
+		<result column="sex" property="sex" jdbcType="INTEGER" />
+		<result column="id_info" property="idInfo" jdbcType="VARCHAR" />
+		<result column="birthdate" property="birthdate"
+			jdbcType="TIMESTAMP" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		traveler_id, custom_id, cn_name, eg_name, nation,
+		expire_date, sex, id_info,
+		birthdate,
+		mobile
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_custom_travelers
+		where traveler_id =
+		#{travelerId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_custom_travelers
+		where traveler_id =
+		#{travelerId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.yilan.elantrip.domain.CustomTravelers">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="travelerId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_custom_travelers (custom_id, cn_name, eg_name,
+		nation,
+		expire_date, sex,
+		id_info, birthdate, mobile
+		)
+		values
+		(#{customId,jdbcType=INTEGER}, #{cnName,jdbcType=VARCHAR},
+		#{egName,jdbcType=VARCHAR},
+		#{nation,jdbcType=VARCHAR},
+		#{expireDate,jdbcType=TIMESTAMP}, #{sex,jdbcType=INTEGER},
+		#{idInfo,jdbcType=VARCHAR}, #{birthdate,jdbcType=TIMESTAMP},
+		#{mobile,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.yilan.elantrip.domain.CustomTravelers">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="travelerId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_custom_travelers
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="customId != null">
+				custom_id,
+			</if>
+			<if test="cnName != null">
+				cn_name,
+			</if>
+			<if test="egName != null">
+				eg_name,
+			</if>
+			<if test="nation != null">
+				nation,
+			</if>
+			<if test="expireDate != null">
+				expire_date,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="idInfo != null">
+				id_info,
+			</if>
+			<if test="birthdate != null">
+				birthdate,
+			</if>
+			<if test="mobile != null">
+				mobile,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="customId != null">
+				#{customId,jdbcType=INTEGER},
+			</if>
+			<if test="cnName != null">
+				#{cnName,jdbcType=VARCHAR},
+			</if>
+			<if test="egName != null">
+				#{egName,jdbcType=VARCHAR},
+			</if>
+			<if test="nation != null">
+				#{nation,jdbcType=VARCHAR},
+			</if>
+			<if test="expireDate != null">
+				#{expireDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=INTEGER},
+			</if>
+			<if test="idInfo != null">
+				#{idInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="birthdate != null">
+				#{birthdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.yilan.elantrip.domain.CustomTravelers">
+		update t_custom_travelers
+		<set>
+			<if test="customId != null">
+				custom_id = #{customId,jdbcType=INTEGER},
+			</if>
+			<if test="cnName != null">
+				cn_name = #{cnName,jdbcType=VARCHAR},
+			</if>
+			<if test="egName != null">
+				eg_name = #{egName,jdbcType=VARCHAR},
+			</if>
+			<if test="nation != null">
+				nation = #{nation,jdbcType=VARCHAR},
+			</if>
+			<if test="expireDate != null">
+				expire_date = #{expireDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=INTEGER},
+			</if>
+			<if test="idInfo != null">
+				id_info = #{idInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="birthdate != null">
+				birthdate = #{birthdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where traveler_id = #{travelerId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.yilan.elantrip.domain.CustomTravelers">
+		update t_custom_travelers
+		set custom_id =
+		#{customId,jdbcType=INTEGER},
+		cn_name = #{cnName,jdbcType=VARCHAR},
+		eg_name = #{egName,jdbcType=VARCHAR},
+		nation =
+		#{nation,jdbcType=VARCHAR},
+		expire_date =
+		#{expireDate,jdbcType=TIMESTAMP},
+		sex = #{sex,jdbcType=INTEGER},
+		id_info = #{idInfo,jdbcType=VARCHAR},
+		birthdate =
+		#{birthdate,jdbcType=TIMESTAMP},
+		mobile = #{mobile,jdbcType=VARCHAR}
+		where traveler_id = #{travelerId,jdbcType=INTEGER}
+	</update>
+
+
+	<!-- <update id="placeOderTrav" parameterType="com.yilan.elantrip.domain.rs.Traveler"> 
+		update t_custom_app set cn_name = #{cnName,jdbcType=VARCHAR}, eg_name = #{egName,jdbcType=VARCHAR}, 
+		nation = #{nation,jdbcType=VARCHAR}, expire_date = #{expireDate,jdbcType=DATETIME}, 
+		sex = #{sex,jdbcType=INTEGER}, id_info = #{idInfo,jdbcType=INTEGER}, birthdate 
+		= #{birthdate,jdbcType=DATETIME}, mobile = #{mobile, jdbcType=VARCHAR} where 
+		custom_app_id = 1 </update> -->
+
+	<insert id="placeOderTrav" parameterType="ArrayList">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="travelerId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_custom_travelers (custom_id, cn_name, eg_name,
+		nation,
+		expire_date, sex,
+		id_info, birthdate, mobile
+		)
+		<foreach collection="travelerList" item="traveler"
+			index="index" separator=",">
+			values
+			(#{traveler.customId,jdbcType=INTEGER},
+			#{traveler.cnName,jdbcType=VARCHAR},
+			#{traveler.egName,jdbcType=VARCHAR},
+			#{traveler.nation,jdbcType=VARCHAR},
+			#{traveler.expireDate,jdbcType=TIMESTAMP},
+			#{traveler.sex,jdbcType=INTEGER},
+			#{traveler.idInfo,jdbcType=VARCHAR},
+			#{traveler.birthdate,jdbcType=TIMESTAMP},
+			#{traveler.mobile,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<insert id="addBustripNodes"
+		parameterType="com.yilan.elantrip.domain.BustripNode">
+		insert into t_bustrip_node(node_code, bustrip_id) values
+		<foreach collection="bustripNodes" item="bustripNode"
+			separator=",">
+			(#{bustripNode.nodeCode,jdbcType=VARCHAR},#{bustripNode.bustripId,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+
+</mapper>

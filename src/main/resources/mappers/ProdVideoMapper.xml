@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.ProdVideoMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.ProdVideo" >
+    <id column="prod_video_id" property="prodVideoId" jdbcType="INTEGER" />
+    <result column="prod_id" property="prodId" jdbcType="INTEGER" />
+    <result column="video_url" property="videoUrl" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    prod_video_id, prod_id, video_url, activated, deleted, updated_date, created_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_prod_video
+    where prod_video_id = #{prodVideoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_prod_video
+    where prod_video_id = #{prodVideoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.ProdVideo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="prodVideoId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_prod_video (prod_id, video_url, activated, 
+      deleted, updated_date, created_date
+      )
+    values (#{prodId,jdbcType=INTEGER}, #{videoUrl,jdbcType=VARCHAR}, #{activated,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=INTEGER}, #{updatedDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.ProdVideo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="prodVideoId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_prod_video
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="prodId != null" >
+        prod_id,
+      </if>
+      <if test="videoUrl != null" >
+        video_url,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="prodId != null" >
+        #{prodId,jdbcType=INTEGER},
+      </if>
+      <if test="videoUrl != null" >
+        #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.ProdVideo" >
+    update t_prod_video
+    <set >
+      <if test="prodId != null" >
+        prod_id = #{prodId,jdbcType=INTEGER},
+      </if>
+      <if test="videoUrl != null" >
+        video_url = #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where prod_video_id = #{prodVideoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.ProdVideo" >
+    update t_prod_video
+    set prod_id = #{prodId,jdbcType=INTEGER},
+      video_url = #{videoUrl,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
+    where prod_video_id = #{prodVideoId,jdbcType=INTEGER}
+  </update>
+</mapper>

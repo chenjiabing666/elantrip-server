@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.BustripMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.Bustrip" >
+    <id column="trip_id" property="tripId" jdbcType="SMALLINT" />
+    <result column="trip_code" property="tripCode" jdbcType="VARCHAR" />
+    <result column="trip_name" property="tripName" jdbcType="VARCHAR" />
+    <result column="node_count" property="nodeCount" jdbcType="INTEGER" />
+    <result column="trip_desc" property="tripDesc" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="activated" property="activated" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+    <resultMap id="tripDetails" type="com.yilan.elantrip.domain.Bustrip" >
+    <id column="trip_id" property="tripId" jdbcType="SMALLINT" />
+    <result column="trip_code" property="tripCode" jdbcType="VARCHAR" />
+    <result column="trip_name" property="tripName" jdbcType="VARCHAR" />
+    <result column="trip_desc" property="tripDesc" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    trip_id, trip_code, trip_name, node_count, trip_desc, status, activated, deleted, 
+    updated_date, created_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="tripDetails" parameterType="java.lang.Short" >
+    select 
+    trip_code,
+    trip_name,
+    trip_desc,
+    status
+    from t_bustrip
+    where trip_id = #{tripId,jdbcType=SMALLINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from t_bustrip
+    where trip_id = #{tripId,jdbcType=SMALLINT}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.Bustrip" >
+    <selectKey resultType="java.lang.Short" keyProperty="tripId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_bustrip (trip_code, trip_name, node_count, 
+      trip_desc, status, activated, 
+      deleted, updated_date, created_date
+      )
+    values (#{tripCode,jdbcType=VARCHAR}, #{tripName,jdbcType=VARCHAR}, #{nodeCount,jdbcType=INTEGER}, 
+      #{tripDesc,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{activated,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=INTEGER}, #{updatedDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.Bustrip" >
+    <selectKey resultType="java.lang.Short" keyProperty="tripId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_bustrip
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tripCode != null" >
+        trip_code,
+      </if>
+      <if test="tripName != null" >
+        trip_name,
+      </if>
+      <if test="nodeCount != null" >
+        node_count,
+      </if>
+      <if test="tripDesc != null" >
+        trip_desc,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tripCode != null" >
+        #{tripCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tripName != null" >
+        #{tripName,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeCount != null" >
+        #{nodeCount,jdbcType=INTEGER},
+      </if>
+      <if test="tripDesc != null" >
+        #{tripDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.Bustrip" >
+    update t_bustrip
+    <set >
+      <if test="tripCode != null" >
+        trip_code = #{tripCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tripName != null" >
+        trip_name = #{tripName,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeCount != null" >
+        node_count = #{nodeCount,jdbcType=INTEGER},
+      </if>
+      <if test="tripDesc != null" >
+        trip_desc = #{tripDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where trip_id = #{tripId,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.Bustrip" >
+    update t_bustrip
+    set 
+      trip_desc = #{tripDesc,jdbcType=VARCHAR},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+    where trip_id = #{tripId,jdbcType=SMALLINT}
+  </update>
+  
+  
+  
+  
+  <select id="getBustripList" resultMap="BaseResultMap">
+		SELECT
+		trip_id,
+		trip_code,
+		trip_name,
+		node_count,
+		trip_desc,
+		activated
+		FROM t_bustrip
+		<where>
+			<if test="params.trip_name!=null and params.trip_name!=''">
+				and trip_name like "%"#{params.tripName,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="params.trip_code!=null and params.trip_code!=''">
+				and trip_code = #{params.trip_code,jdbcType=VARCHAR}
+			</if>
+		</where>
+		limit #{startNum,jdbcType=INTEGER},#{pageSize,jdbcType=VARCHAR}
+	</select>
+	
+	
+	
+	
+	<select id="countTotal" resultType="java.lang.Integer">
+		SELECT count(*) FROM t_bustrip
+		<where>
+			<if test="params.trip_name!=null and params.trip_name!=''">
+				and trip_name like "%"#{params.tripName,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="params.tripCpde!=null and params.tripCode!=''">
+				and trip_code = #{params.tripCode,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+</mapper>

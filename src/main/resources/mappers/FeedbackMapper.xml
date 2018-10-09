@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.FeedbackMapper">
+	<resultMap id="BaseResultMap"
+		type="com.yilan.elantrip.domain.Feedback">
+		<id column="feedback_id" property="feedbackId" jdbcType="INTEGER" />
+		<result column="feedback_title" property="feedbackTitle"
+			jdbcType="VARCHAR" />
+		<result column="feedback_content" property="feedbackContent"
+			jdbcType="VARCHAR" />
+		<result column="user_name" property="userName"
+			jdbcType="VARCHAR" />
+		<result column="activated" property="activated"
+			jdbcType="INTEGER" />
+		<result column="deleted" property="deleted" jdbcType="INTEGER" />
+		<result column="updated_date" property="updatedDate"
+			jdbcType="TIMESTAMP" />
+		<result column="created_date" property="createdDate"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<resultMap id="RSfeedback"
+		type="com.yilan.elantrip.domain.rs.RSfeedbackImage">
+		<result column="feedback_id" property="feedbackId" />
+		<result column="feedback_title" property="feedbackTitle" />
+		<result column="feedback_content" property="feedbackContent" />
+		<result column="user_name" property="userName" />
+		<result column="created_date" property="createdDate" />
+		<collection property="feedbackImages"
+			ofType="com.yilan.elantrip.domain.FeedbackImage">
+			<result column="image_url" property="imageUrl" />
+		</collection>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		feedback_id, feedback_title, feedback_content, user_name,
+		activated, deleted,
+		updated_date,
+		created_date
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_feedback
+		where feedback_id = #{feedbackId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_feedback
+		where feedback_id =
+		#{feedbackId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.yilan.elantrip.domain.Feedback">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="feedbackId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_feedback (feedback_title, feedback_content, user_name,
+		activated, deleted, updated_date,
+		created_date)
+		values
+		(#{feedbackTitle,jdbcType=VARCHAR},
+		#{feedbackContent,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+		#{activated,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER},
+		#{updatedDate,jdbcType=TIMESTAMP},
+		#{createdDate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.yilan.elantrip.domain.Feedback">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="feedbackId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_feedback
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="feedbackTitle != null">
+				feedback_title,
+			</if>
+			<if test="feedbackContent != null">
+				feedback_content,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="activated != null">
+				activated,
+			</if>
+			<if test="deleted != null">
+				deleted,
+			</if>
+			<if test="updatedDate != null">
+				updated_date,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="feedbackTitle != null">
+				#{feedbackTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="feedbackContent != null">
+				#{feedbackContent,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="activated != null">
+				#{activated,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="updatedDate != null">
+				#{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.yilan.elantrip.domain.Feedback">
+		update t_feedback
+		<set>
+			<if test="feedbackTitle != null">
+				feedback_title = #{feedbackTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="feedbackContent != null">
+				feedback_content = #{feedbackContent,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="activated != null">
+				activated = #{activated,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				deleted = #{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="updatedDate != null">
+				updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where feedback_id = #{feedbackId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.yilan.elantrip.domain.Feedback">
+		update t_feedback
+		set feedback_title =
+		#{feedbackTitle,jdbcType=VARCHAR},
+		feedback_content =
+		#{feedbackContent,jdbcType=VARCHAR},
+		user_name =
+		#{userName,jdbcType=VARCHAR},
+		activated =
+		#{activated,jdbcType=INTEGER},
+		deleted = #{deleted,jdbcType=INTEGER},
+		updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+		created_date =
+		#{createdDate,jdbcType=TIMESTAMP}
+		where feedback_id =
+		#{feedbackId,jdbcType=INTEGER}
+	</update>
+	<select id="countTotal" resultType="java.lang.Integer">
+		SELECT count(*) FROM
+		t_feedback f
+		<where>
+			<if test="params.startDate !=null and params.endDate != ''">
+				and f.created_date between #{params.startDate} and
+				#{params.endDate}
+			</if>
+		</where>
+	</select>
+	<select id="selectFeedbackList" resultMap="BaseResultMap">
+		SELECT
+		f.feedback_id,
+		f.feedback_title,
+		f.feedback_content,
+		f.user_name,
+		f.created_date
+		FROM
+		t_feedback f
+		<where>
+			<if test="params.startDate !=null and params.endDate != ''">
+				and f.created_date between #{params.startDate} and
+				#{params.endDate}
+			</if>
+		</where>
+		limit
+		#{startNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectFeedbackDetail" resultMap="RSfeedback">
+		SELECT
+		f.feedback_id,
+		f.feedback_title,
+		f.feedback_content,
+		f.user_name,
+		f.created_date,
+		fi.image_url
+		FROM
+		t_feedback f,
+		t_feedback_image fi
+		where
+		f.feedback_id = fi.feedback_id
+		and f.feedback_id = #{feedbackId}
+	</select>
+</mapper>

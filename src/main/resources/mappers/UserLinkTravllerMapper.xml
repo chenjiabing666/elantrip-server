@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.UserLinkTravllerMapper">
+	<resultMap id="BaseResultMap"
+		type="com.yilan.elantrip.domain.UserLinkTravller">
+		<id column="user_link_travller_id" property="userLinkTravllerId"
+			jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="order_code" property="orderCode"
+			jdbcType="VARCHAR" />
+		<result column="country" property="country" jdbcType="VARCHAR" />
+		<result column="china_name" property="chinaName"
+			jdbcType="VARCHAR" />
+		<result column="en_name" property="enName" jdbcType="VARCHAR" />
+		<result column="cer_code" property="cerCode" jdbcType="VARCHAR" />
+		<result column="cer_type" property="cerType" jdbcType="INTEGER" />
+		<result column="cer_end_date" property="cerEndDate"
+			jdbcType="DATE" />
+		<result column="gender" property="gender" jdbcType="INTEGER" />
+		<result column="birth" property="birth" jdbcType="DATE" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="user_type" property="userType"
+			jdbcType="INTEGER" />
+		<result column="is_link" property="isLink" jdbcType="INTEGER" />
+		<result column="is_default" property="isDefault"
+			jdbcType="INTEGER" />
+		<result column="is_often" property="isOften" jdbcType="INTEGER" />
+		<result column="activated" property="activated"
+			jdbcType="INTEGER" />
+		<result column="deleted" property="deleted" jdbcType="INTEGER" />
+		<result column="updated_date" property="updatedDate"
+			jdbcType="TIMESTAMP" />
+		<result column="created_date" property="createdDate"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		user_link_travller_id, user_id, order_code, country, china_name, en_name, cer_code,
+		cer_type, cer_end_date, gender, birth, email, mobile, user_type,
+		is_link, is_default,
+		is_often, activated, deleted, updated_date, created_date
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_user_link_traveller
+		where user_link_travller_id = #{userLinkTravllerId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_user_link_traveller
+		where user_link_travller_id = #{userLinkTravllerId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.yilan.elantrip.domain.UserLinkTravller">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="userLinkTravllerId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_user_link_traveller (user_id, order_code, country,
+		china_name, en_name, cer_code,
+		cer_type, cer_end_date, gender,
+		birth, email, mobile,
+		user_type, is_link, is_default,
+		is_often, activated, deleted,
+		updated_date, created_date)
+		values (#{userId,jdbcType=INTEGER}, #{orderCode,jdbcType=VARCHAR},
+		#{country,jdbcType=VARCHAR},
+		#{chinaName,jdbcType=VARCHAR}, #{enName,jdbcType=VARCHAR}, #{cerCode,jdbcType=VARCHAR},
+		#{cerType,jdbcType=INTEGER}, #{cerEndDate,jdbcType=DATE},
+		#{gender,jdbcType=INTEGER},
+		#{birth,jdbcType=DATE}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR},
+		#{userType,jdbcType=INTEGER}, #{isLink,jdbcType=INTEGER},
+		#{isDefault,jdbcType=INTEGER},
+		#{isOften,jdbcType=INTEGER}, #{activated,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER},
+		#{updatedDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.yilan.elantrip.domain.UserLinkTravller">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="userLinkTravllerId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_user_link_traveller
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="orderCode != null">
+				order_code,
+			</if>
+			<if test="country != null">
+				country,
+			</if>
+			<if test="chinaName != null">
+				china_name,
+			</if>
+			<if test="enName != null">
+				en_name,
+			</if>
+			<if test="cerCode != null">
+				cer_code,
+			</if>
+			<if test="cerType != null">
+				cer_type,
+			</if>
+			<if test="cerEndDate != null">
+				cer_end_date,
+			</if>
+			<if test="gender != null">
+				gender,
+			</if>
+			<if test="birth != null">
+				birth,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="mobile != null">
+				mobile,
+			</if>
+			<if test="userType != null">
+				user_type,
+			</if>
+			<if test="isLink != null">
+				is_link,
+			</if>
+			<if test="isDefault != null">
+				is_default,
+			</if>
+			<if test="isOften != null">
+				is_often,
+			</if>
+			<if test="activated != null">
+				activated,
+			</if>
+			<if test="deleted != null">
+				deleted,
+			</if>
+			<if test="updatedDate != null">
+				updated_date,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="orderCode != null">
+				#{orderCode,jdbcType=VARCHAR},
+			</if>
+			<if test="country != null">
+				#{country,jdbcType=VARCHAR},
+			</if>
+			<if test="chinaName != null">
+				#{chinaName,jdbcType=VARCHAR},
+			</if>
+			<if test="enName != null">
+				#{enName,jdbcType=VARCHAR},
+			</if>
+			<if test="cerCode != null">
+				#{cerCode,jdbcType=VARCHAR},
+			</if>
+			<if test="cerType != null">
+				#{cerType,jdbcType=INTEGER},
+			</if>
+			<if test="cerEndDate != null">
+				#{cerEndDate,jdbcType=DATE},
+			</if>
+			<if test="gender != null">
+				#{gender,jdbcType=INTEGER},
+			</if>
+			<if test="birth != null">
+				#{birth,jdbcType=DATE},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="userType != null">
+				#{userType,jdbcType=INTEGER},
+			</if>
+			<if test="isLink != null">
+				#{isLink,jdbcType=INTEGER},
+			</if>
+			<if test="isDefault != null">
+				#{isDefault,jdbcType=INTEGER},
+			</if>
+			<if test="isOften != null">
+				#{isOften,jdbcType=INTEGER},
+			</if>
+			<if test="activated != null">
+				#{activated,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="updatedDate != null">
+				#{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.yilan.elantrip.domain.UserLinkTravller">
+		update t_user_link_traveller
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="orderCode != null">
+				order_code = #{orderCode,jdbcType=VARCHAR},
+			</if>
+			<if test="country != null">
+				country = #{country,jdbcType=VARCHAR},
+			</if>
+			<if test="chinaName != null">
+				china_name = #{chinaName,jdbcType=VARCHAR},
+			</if>
+			<if test="enName != null">
+				en_name = #{enName,jdbcType=VARCHAR},
+			</if>
+			<if test="cerCode != null">
+				cer_code = #{cerCode,jdbcType=VARCHAR},
+			</if>
+			<if test="cerType != null">
+				cer_type = #{cerType,jdbcType=INTEGER},
+			</if>
+			<if test="cerEndDate != null">
+				cer_end_date = #{cerEndDate,jdbcType=DATE},
+			</if>
+			<if test="gender != null">
+				gender = #{gender,jdbcType=INTEGER},
+			</if>
+			<if test="birth != null">
+				birth = #{birth,jdbcType=DATE},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="userType != null">
+				user_type = #{userType,jdbcType=INTEGER},
+			</if>
+			<if test="isLink != null">
+				is_link = #{isLink,jdbcType=INTEGER},
+			</if>
+			<if test="isDefault != null">
+				is_default = #{isDefault,jdbcType=INTEGER},
+			</if>
+			<if test="isOften != null">
+				is_often = #{isOften,jdbcType=INTEGER},
+			</if>
+			<if test="activated != null">
+				activated = #{activated,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				deleted = #{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="updatedDate != null">
+				updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where user_link_travller_id = #{userLinkTravllerId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.yilan.elantrip.domain.UserLinkTravller">
+		update t_user_link_traveller
+		set user_id = #{userId,jdbcType=INTEGER},
+		order_code = #{orderCode,jdbcType=VARCHAR},
+		country = #{country,jdbcType=VARCHAR},
+		china_name = #{chinaName,jdbcType=VARCHAR},
+		en_name = #{enName,jdbcType=VARCHAR},
+		cer_code = #{cerCode,jdbcType=VARCHAR},
+		cer_type = #{cerType,jdbcType=INTEGER},
+		cer_end_date = #{cerEndDate,jdbcType=DATE},
+		gender = #{gender,jdbcType=INTEGER},
+		birth = #{birth,jdbcType=DATE},
+		email = #{email,jdbcType=VARCHAR},
+		mobile = #{mobile,jdbcType=VARCHAR},
+		user_type = #{userType,jdbcType=INTEGER},
+		is_link = #{isLink,jdbcType=INTEGER},
+		is_default = #{isDefault,jdbcType=INTEGER},
+		is_often = #{isOften,jdbcType=INTEGER},
+		activated = #{activated,jdbcType=INTEGER},
+		deleted = #{deleted,jdbcType=INTEGER},
+		updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+		created_date = #{createdDate,jdbcType=TIMESTAMP}
+		where user_link_travller_id = #{userLinkTravllerId,jdbcType=INTEGER}
+	</update>
+	<!-- 批量插入 -->
+	<insert id="insertBatchUserLinkTravller"
+		parameterType="java.util.List">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="userLinkTravllerId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_user_link_traveller
+		(user_id,order_code,country,china_name,en_name,cer_code,cer_type,cer_end_date,gender,birth,email,mobile,user_type,is_link,is_default,is_often,created_date
+		)
+		values
+		<foreach collection="userLinkTravllerList" item="item"
+			index="index" separator=",">
+			(
+			#{item.userId,jdbcType=INTEGER},
+			#{item.orderCode,jdbcType=VARCHAR},
+			#{item.country,jdbcType=VARCHAR},
+			#{item.chinaName,jdbcType=VARCHAR},
+			#{item.enName,jdbcType=VARCHAR},
+			#{item.cerCode,jdbcType=VARCHAR},
+			#{item.cerType,jdbcType=INTEGER},
+			#{item.cerEndDate,jdbcType=DATE},
+			#{item.gender,jdbcType=INTEGER},
+			#{item.birth,jdbcType=DATE},
+			#{item.email,jdbcType=VARCHAR},
+			#{item.mobile,jdbcType=VARCHAR},
+			#{item.userType,jdbcType=INTEGER},
+			#{item.isLink,jdbcType=INTEGER},
+			#{item.isDefault,jdbcType=INTEGER},
+			#{item.isOften,jdbcType=INTEGER},
+			#{item.createdDate,jdbcType=TIMESTAMP},
+			)
+		</foreach>
+	</insert>
+	<select id="countTotal" resultType="java.lang.Integer">
+		SELECT count(*) FROM t_user_link_traveller
+		where userId=#{params.userId}
+	</select>
+
+	<select id="selectUserLinkList" resultMap="BaseResultMap">
+		SELECT
+		user_link_travller_id,
+		user_id,
+		china_name,
+		country,
+		birth,
+		gender,
+		mobile,
+		email,
+		cer_code
+		FROM
+		t_user_link_traveller
+		where userId=#{params.userId}
+		limit #{startNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+</mapper>

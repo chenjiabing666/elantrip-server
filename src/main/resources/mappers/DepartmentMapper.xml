@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.DepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.Department" >
+    <id column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+    <result column="upper_dept" property="upperDept" jdbcType="VARCHAR" />
+    <result column="dept_level" property="deptLevel" jdbcType="INTEGER" />
+    <result column="dept_desc" property="deptDesc" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dept_id, dept_name, upper_dept, dept_level, dept_desc, activated, deleted, updated_date, 
+    created_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_dept
+    where dept_id = #{deptId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_dept
+    where dept_id = #{deptId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.Department" >
+    <selectKey resultType="java.lang.Integer" keyProperty="deptId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_dept (dept_name, upper_dept, dept_level, 
+      dept_desc, activated, deleted, 
+      updated_date, created_date)
+    values (#{deptName,jdbcType=VARCHAR}, #{upperDept,jdbcType=VARCHAR}, #{deptLevel,jdbcType=INTEGER}, 
+      #{deptDesc,jdbcType=VARCHAR}, #{activated,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, 
+      #{updatedDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.Department" >
+    <selectKey resultType="java.lang.Integer" keyProperty="deptId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_dept
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deptName != null" >
+        dept_name,
+      </if>
+      <if test="upperDept != null" >
+        upper_dept,
+      </if>
+      <if test="deptLevel != null" >
+        dept_level,
+      </if>
+      <if test="deptDesc != null" >
+        dept_desc,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deptName != null" >
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="upperDept != null" >
+        #{upperDept,jdbcType=VARCHAR},
+      </if>
+      <if test="deptLevel != null" >
+        #{deptLevel,jdbcType=INTEGER},
+      </if>
+      <if test="deptDesc != null" >
+        #{deptDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.Department" >
+    update t_dept
+    <set >
+      <if test="deptName != null" >
+        dept_name = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="upperDept != null" >
+        upper_dept = #{upperDept,jdbcType=VARCHAR},
+      </if>
+      <if test="deptLevel != null" >
+        dept_level = #{deptLevel,jdbcType=INTEGER},
+      </if>
+      <if test="deptDesc != null" >
+        dept_desc = #{deptDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where dept_id = #{deptId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.Department" >
+    update t_dept
+    set dept_name = #{deptName,jdbcType=VARCHAR},
+      upper_dept = #{upperDept,jdbcType=VARCHAR},
+      dept_level = #{deptLevel,jdbcType=INTEGER},
+      dept_desc = #{deptDesc,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
+    where dept_id = #{deptId,jdbcType=INTEGER}
+  </update>
+  
+   <select id="countTotal" resultType="java.lang.Integer">
+    select count(*) from t_dept
+  </select>
+  
+  <select id="selectDeptList" resultMap="BaseResultMap" >
+    select dept_id,dept_name,dept_level,upper_dept,created_date
+    <include refid="Base_Column_List" />
+    from t_dept
+  </select>
+  
+  <select id="selectDeptNameList" resultType="java.lang.String">
+    select 
+    dept_name
+    from t_dept
+    where upper_dept = 'noUpper'
+  </select>
+  
+   <select id="selectSubdeptList" resultType="java.lang.String">
+    select 
+    dept_name
+    from t_dept
+    where upper_dept = #{upperDept,jdbcType=VARCHAR}
+  </select>
+</mapper>

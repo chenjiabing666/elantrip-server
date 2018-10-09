@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.TripNodeMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.TripNode" >
+    <id column="node_id" property="nodeId" jdbcType="INTEGER" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    <result column="city_name_en" property="cityNameEn" jdbcType="VARCHAR" />
+    <result column="node_code" property="nodeCode" jdbcType="VARCHAR" />
+    <result column="node_type" property="nodeType" jdbcType="INTEGER" />
+    <result column="node_desc" property="nodeDesc" jdbcType="VARCHAR" />
+    <result column="node_desc_en" property="nodeDescEn" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="activated" property="activated" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    node_id, city_name, city_name_en, node_code, node_type, node_desc, node_desc_en, 
+    status, activated, deleted, updated_date, created_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_trip_node
+    where node_id = #{nodeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_trip_node
+    where node_id = #{nodeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.TripNode" >
+    <selectKey resultType="java.lang.Integer" keyProperty="nodeId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_trip_node (city_name, city_name_en, node_code, 
+      node_type, node_desc, node_desc_en, 
+      status, activated, deleted, 
+      updated_date, created_date)
+    values (#{cityName,jdbcType=VARCHAR}, #{cityNameEn,jdbcType=VARCHAR}, #{nodeCode,jdbcType=VARCHAR}, 
+      #{nodeType,jdbcType=INTEGER}, #{nodeDesc,jdbcType=VARCHAR}, #{nodeDescEn,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{activated,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, 
+      #{updatedDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.TripNode" >
+    <selectKey resultType="java.lang.Integer" keyProperty="nodeId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_trip_node
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cityName != null" >
+        city_name,
+      </if>
+      <if test="cityNameEn != null" >
+        city_name_en,
+      </if>
+      <if test="nodeCode != null" >
+        node_code,
+      </if>
+      <if test="nodeType != null" >
+        node_type,
+      </if>
+      <if test="nodeDesc != null" >
+        node_desc,
+      </if>
+      <if test="nodeDescEn != null" >
+        node_desc_en,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNameEn != null" >
+        #{cityNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeCode != null" >
+        #{nodeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeType != null" >
+        #{nodeType,jdbcType=INTEGER},
+      </if>
+      <if test="nodeDesc != null" >
+        #{nodeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeDescEn != null" >
+        #{nodeDescEn,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.TripNode" >
+    update t_trip_node
+    <set >
+      <if test="cityName != null" >
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNameEn != null" >
+        city_name_en = #{cityNameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeCode != null" >
+        node_code = #{nodeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeType != null" >
+        node_type = #{nodeType,jdbcType=INTEGER},
+      </if>
+      <if test="nodeDesc != null" >
+        node_desc = #{nodeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeDescEn != null" >
+        node_desc_en = #{nodeDescEn,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where node_id = #{nodeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.TripNode" >
+    update t_trip_node
+    set city_name = #{cityName,jdbcType=VARCHAR},
+      city_name_en = #{cityNameEn,jdbcType=VARCHAR},
+      node_code = #{nodeCode,jdbcType=VARCHAR},
+      node_type = #{nodeType,jdbcType=INTEGER},
+      node_desc = #{nodeDesc,jdbcType=VARCHAR},
+      node_desc_en = #{nodeDescEn,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      activated = #{activated,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
+    where node_id = #{nodeId,jdbcType=INTEGER}
+  </update>
+  
+      <select id="getBustripNodeList" resultMap="BaseResultMap">
+		SELECT
+		node_id,
+		city_name,
+		node_code,
+		node_type,
+		node_desc,
+		status
+		FROM t_trip_node
+<!-- 		<where>
+			<if test="params.cityName!=null and params.cityName!=''">
+				and city_name like "%"#{params.cityName,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="params.nodeCode!=null and params.nodeCode!=''">
+				and node_code = #{params.nodeCode,jdbcType=VARCHAR}
+			</if>
+		</where> -->
+		limit #{startNum,jdbcType=INTEGER},#{pageSize,jdbcType=VARCHAR}
+	</select>
+	
+	
+		<select id="countNodeTotal" resultType="java.lang.Integer">
+		SELECT count(*) FROM t_trip_node
+		<where>
+			<if test="params.cityName!=null and params.cityName!=''">
+				and city_name like "%"#{params.cityName,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="params.nodeCode!=null and params.nodeCode!=''">
+				and node_code = #{params.nodeCode,jdbcType=VARCHAR}
+			</if>
+		</where>
+			</select>
+</mapper>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.FeedbackImageMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.FeedbackImage" >
+    <id column="feedback_image_id" property="feedbackImageId" jdbcType="INTEGER" />
+    <result column="feedback_id" property="feedbackId" jdbcType="INTEGER" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    feedback_image_id, feedback_id, image_url, activated, deleted, created_date, updated_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_feedback_image
+    where feedback_image_id = #{feedbackImageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_feedback_image
+    where feedback_image_id = #{feedbackImageId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.FeedbackImage" >
+    <selectKey resultType="java.lang.Integer" keyProperty="feedbackImageId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_feedback_image (feedback_id, image_url, activated, 
+      deleted, created_date, updated_date
+      )
+    values (#{feedbackId,jdbcType=INTEGER}, #{imageUrl,jdbcType=VARCHAR}, #{activated,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=INTEGER}, #{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.FeedbackImage" >
+    <selectKey resultType="java.lang.Integer" keyProperty="feedbackImageId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_feedback_image
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="feedbackId != null" >
+        feedback_id,
+      </if>
+      <if test="imageUrl != null" >
+        image_url,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="feedbackId != null" >
+        #{feedbackId,jdbcType=INTEGER},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.FeedbackImage" >
+    update t_feedback_image
+    <set >
+      <if test="feedbackId != null" >
+        feedback_id = #{feedbackId,jdbcType=INTEGER},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where feedback_image_id = #{feedbackImageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.FeedbackImage" >
+    update t_feedback_image
+    set feedback_id = #{feedbackId,jdbcType=INTEGER},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+    where feedback_image_id = #{feedbackImageId,jdbcType=INTEGER}
+  </update>
+  
+    <!-- 批量插入 -->
+	<insert id="insertBatchImage" parameterType="java.util.List">
+		<selectKey resultType="java.lang.Integer" keyProperty="imageId"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_feedback_image
+		(feedback_id,image_url,
+		created_date)
+		values
+		<foreach collection="imageList" item="item" index="index"
+			separator=",">
+			(
+			#{item.feedbackId,jdbcType=INTEGER},
+			#{item.imageUrl,jdbcType=VARCHAR},
+			#{item.createdDate,jdbcType=TIMESTAMP}
+			)
+		</foreach>
+	</insert>
+</mapper>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.ProdIntroMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.ProdIntro" >
+    <id column="intro_id" property="introId" jdbcType="INTEGER" />
+    <result column="prod_id" property="prodId" jdbcType="INTEGER" />
+    <result column="trip_sum" property="tripSum" jdbcType="VARCHAR" />
+    <result column="trip_details" property="tripDetails" jdbcType="VARCHAR" />
+    <result column="days" property="days" jdbcType="INTEGER" />
+    <result column="views" property="views" jdbcType="VARCHAR" />
+    <result column="breakfast" property="breakfast" jdbcType="VARCHAR" />
+    <result column="lunch" property="lunch" jdbcType="VARCHAR" />
+    <result column="dinner" property="dinner" jdbcType="VARCHAR" />
+    <result column="traffic_type" property="trafficType" jdbcType="INTEGER" />
+    <result column="traffic_other" property="trafficOther" jdbcType="VARCHAR" />
+    <result column="hotels" property="hotels" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    intro_id, prod_id, trip_sum, trip_details, days, views, breakfast, lunch, dinner, 
+    traffic_type, traffic_other, hotels, activated, deleted, created_date, updated_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_prod_intro
+    where intro_id = #{introId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_prod_intro
+    where intro_id = #{introId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.ProdIntro" >
+    <selectKey resultType="java.lang.Integer" keyProperty="introId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_prod_intro (prod_id, trip_sum, trip_details, 
+      days, views, breakfast, 
+      lunch, dinner, traffic_type, 
+      traffic_other, hotels, activated, 
+      deleted, created_date, updated_date
+      )
+    values (#{prodId,jdbcType=INTEGER}, #{tripSum,jdbcType=VARCHAR}, #{tripDetails,jdbcType=VARCHAR}, 
+      #{days,jdbcType=INTEGER}, #{views,jdbcType=VARCHAR}, #{breakfast,jdbcType=VARCHAR}, 
+      #{lunch,jdbcType=VARCHAR}, #{dinner,jdbcType=VARCHAR}, #{trafficType,jdbcType=INTEGER}, 
+      #{trafficOther,jdbcType=VARCHAR}, #{hotels,jdbcType=VARCHAR}, #{activated,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=INTEGER}, #{createdDate,jdbcType=TIMESTAMP}, #{updatedDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.ProdIntro" >
+    <selectKey resultType="java.lang.Integer" keyProperty="introId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_prod_intro
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="prodId != null" >
+        prod_id,
+      </if>
+      <if test="tripSum != null" >
+        trip_sum,
+      </if>
+      <if test="tripDetails != null" >
+        trip_details,
+      </if>
+      <if test="days != null" >
+        days,
+      </if>
+      <if test="views != null" >
+        views,
+      </if>
+      <if test="breakfast != null" >
+        breakfast,
+      </if>
+      <if test="lunch != null" >
+        lunch,
+      </if>
+      <if test="dinner != null" >
+        dinner,
+      </if>
+      <if test="trafficType != null" >
+        traffic_type,
+      </if>
+      <if test="trafficOther != null" >
+        traffic_other,
+      </if>
+      <if test="hotels != null" >
+        hotels,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="prodId != null" >
+        #{prodId,jdbcType=INTEGER},
+      </if>
+      <if test="tripSum != null" >
+        #{tripSum,jdbcType=VARCHAR},
+      </if>
+      <if test="tripDetails != null" >
+        #{tripDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="days != null" >
+        #{days,jdbcType=INTEGER},
+      </if>
+      <if test="views != null" >
+        #{views,jdbcType=VARCHAR},
+      </if>
+      <if test="breakfast != null" >
+        #{breakfast,jdbcType=VARCHAR},
+      </if>
+      <if test="lunch != null" >
+        #{lunch,jdbcType=VARCHAR},
+      </if>
+      <if test="dinner != null" >
+        #{dinner,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficType != null" >
+        #{trafficType,jdbcType=INTEGER},
+      </if>
+      <if test="trafficOther != null" >
+        #{trafficOther,jdbcType=VARCHAR},
+      </if>
+      <if test="hotels != null" >
+        #{hotels,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.ProdIntro" >
+    update t_prod_intro
+    <set >
+      <if test="prodId != null" >
+        prod_id = #{prodId,jdbcType=INTEGER},
+      </if>
+      <if test="tripSum != null" >
+        trip_sum = #{tripSum,jdbcType=VARCHAR},
+      </if>
+      <if test="tripDetails != null" >
+        trip_details = #{tripDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="days != null" >
+        days = #{days,jdbcType=INTEGER},
+      </if>
+      <if test="views != null" >
+        views = #{views,jdbcType=VARCHAR},
+      </if>
+      <if test="breakfast != null" >
+        breakfast = #{breakfast,jdbcType=VARCHAR},
+      </if>
+      <if test="lunch != null" >
+        lunch = #{lunch,jdbcType=VARCHAR},
+      </if>
+      <if test="dinner != null" >
+        dinner = #{dinner,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficType != null" >
+        traffic_type = #{trafficType,jdbcType=INTEGER},
+      </if>
+      <if test="trafficOther != null" >
+        traffic_other = #{trafficOther,jdbcType=VARCHAR},
+      </if>
+      <if test="hotels != null" >
+        hotels = #{hotels,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where intro_id = #{introId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.ProdIntro" >
+    update t_prod_intro
+    set prod_id = #{prodId,jdbcType=INTEGER},
+      trip_sum = #{tripSum,jdbcType=VARCHAR},
+      trip_details = #{tripDetails,jdbcType=VARCHAR},
+      days = #{days,jdbcType=INTEGER},
+      views = #{views,jdbcType=VARCHAR},
+      breakfast = #{breakfast,jdbcType=VARCHAR},
+      lunch = #{lunch,jdbcType=VARCHAR},
+      dinner = #{dinner,jdbcType=VARCHAR},
+      traffic_type = #{trafficType,jdbcType=INTEGER},
+      traffic_other = #{trafficOther,jdbcType=VARCHAR},
+      hotels = #{hotels,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+    where intro_id = #{introId,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  
+  
+   <select id="selectByProdId" resultMap="BaseResultMap"
+  parameterType="java.lang.Integer">
+  select *
+  from t_prod_intro
+  where prod_id =
+  #{prodId,jdbcType=INTEGER}
+ </select>
+ 
+ 
+   <insert id="addProdIntro" parameterType="ArrayList">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="introId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_prod_intro (prod_id, trip_sum, trip_details,
+		days, views, breakfast,
+		lunch, dinner, traffic_type,traffic_other,hotels
+		)
+		<foreach collection="prodIntros" item="prodintro" index="index"
+			separator=",">
+			values (#{prodintro.prodId,jdbcType=INTEGER}, #{prodintro.breakfast,jdbcType=VARCHAR},
+			#{prodintro.tripDetails,jdbcType=VARCHAR},
+			#{prodintro.tripSum,jdbcType=VARCHAR}, #{prodintro.lunch,jdbcType=VARCHAR}, #{prodintro.traffic,jdbcType=INTEGER},
+			#{prodintro.days,jdbcType=VARCHAR}, #{prodintro.dinner,jdbcType=VARCHAR},
+			#{prodintro.views,jdbcType=VARCHAR},#{prodintro.hotel,jdbcType=VARCHAR},
+			#{prodintro.trafficOther,jdbcType=VARCHAR}
+			)
+			
+			
+		</foreach>
+ </insert>
+</mapper>

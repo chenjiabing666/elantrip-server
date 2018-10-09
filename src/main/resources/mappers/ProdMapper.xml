@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.ProdMapper">
+	<resultMap id="BaseResultMap"
+		type="com.yilan.elantrip.domain.Prod">
+		<id column="prod_id" property="prodId" jdbcType="INTEGER" />
+		<result column="prod_code" property="prodCode"
+			jdbcType="INTEGER" />
+		<result column="prod_title" property="prodTitle"
+			jdbcType="VARCHAR" />
+		<result column="type_id" property="typeId" jdbcType="INTEGER" />
+		<result column="from_location" property="fromLocation"
+			jdbcType="VARCHAR" />
+		<result column="to_location" property="toLocation"
+			jdbcType="VARCHAR" />
+		<result column="area_type" property="areaType"
+			jdbcType="INTEGER" />
+		<result column="region" property="region" jdbcType="VARCHAR" />
+		<result column="slice" property="slice" jdbcType="VARCHAR" />
+		<result column="admin_name" property="adminName"
+			jdbcType="VARCHAR" />
+		<result column="days" property="days" jdbcType="INTEGER" />
+		<result column="collection_num" property="collectionNum"
+			jdbcType="INTEGER" />
+		<result column="purchase_num" property="purchaseNum"
+			jdbcType="INTEGER" />
+		<result column="introduction" property="introduction"
+			jdbcType="VARCHAR" />
+		<result column="stock" property="stock" jdbcType="INTEGER" />
+		<result column="info_check" property="infoCheck"
+			jdbcType="INTEGER" />
+		<result column="ground_status" property="groundStatus"
+			jdbcType="INTEGER" />
+		<result column="insurance" property="insurance"
+			jdbcType="VARCHAR" />
+		<result column="play_car" property="playCar" jdbcType="VARCHAR" />
+		<result column="traffic_info" property="trafficInfo"
+			jdbcType="VARCHAR" />
+		<result column="cancel_type" property="cancelType"
+			jdbcType="INTEGER" />
+		<result column="support_part" property="supportPart"
+			jdbcType="INTEGER" />
+		<result column="mod_contact_person" property="modContactPerson"
+			jdbcType="INTEGER" />
+		<result column="child_price" property="childPrice"
+			jdbcType="DOUBLE" />
+		<result column="adult_price" property="adultPrice"
+			jdbcType="DOUBLE" />
+		<result column="big_child_price" property="bigChildPrice"
+			jdbcType="DOUBLE" />
+		<result column="activated" property="activated"
+			jdbcType="INTEGER" />
+		<result column="deleted" property="deleted" jdbcType="INTEGER" />
+		<result column="updated_date" property="updatedDate"
+			jdbcType="TIMESTAMP" />
+		<result column="created_date" property="createdDate"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		prod_id, prod_code, prod_title, type_id, from_location,
+		to_location,
+		area_type, region,
+		slice, admin_name, days, collection_num,
+		purchase_num, introduction, stock,
+		info_check,
+		ground_status, insurance,
+		play_car, traffic_info, cancel_type, support_part,
+		mod_contact_person,
+		child_price, adult_price, big_child_price, activated, deleted,
+		updated_date,
+		created_date
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_prod
+		where prod_id = #{prodId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_prod
+		where prod_id =
+		#{prodId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.yilan.elantrip.domain.Prod">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="prodId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_prod (prod_code, prod_title, type_id,
+		from_location,
+		to_location, area_type,
+		region, slice, admin_name,
+		days, collection_num,
+		purchase_num,
+		introduction, stock, info_check,
+		ground_status, insurance,
+		play_car,
+		traffic_info, cancel_type, support_part,
+		mod_contact_person,
+		child_price, adult_price,
+		big_child_price, activated, deleted,
+		updated_date, created_date)
+		values (#{prodCode,jdbcType=INTEGER},
+		#{prodTitle,jdbcType=VARCHAR},
+		#{typeId,jdbcType=INTEGER},
+		#{fromLocation,jdbcType=VARCHAR}, #{toLocation,jdbcType=VARCHAR},
+		#{areaType,jdbcType=INTEGER},
+		#{region,jdbcType=VARCHAR},
+		#{slice,jdbcType=VARCHAR},
+		#{adminName,jdbcType=VARCHAR},
+		#{days,jdbcType=INTEGER}, #{collectionNum,jdbcType=INTEGER},
+		#{purchaseNum,jdbcType=INTEGER},
+		#{introduction,jdbcType=VARCHAR},
+		#{stock,jdbcType=INTEGER},
+		#{infoCheck,jdbcType=INTEGER},
+		#{groundStatus,jdbcType=INTEGER}, #{insurance,jdbcType=VARCHAR},
+		#{playCar,jdbcType=VARCHAR},
+		#{trafficInfo,jdbcType=VARCHAR},
+		#{cancelType,jdbcType=INTEGER},
+		#{supportPart,jdbcType=INTEGER},
+		#{modContactPerson,jdbcType=INTEGER}, #{childPrice,jdbcType=DOUBLE},
+		#{adultPrice,jdbcType=DOUBLE},
+		#{bigChildPrice,jdbcType=DOUBLE},
+		#{activated,jdbcType=INTEGER},
+		#{deleted,jdbcType=INTEGER},
+		#{updatedDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.yilan.elantrip.domain.Prod">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="prodId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_prod
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="prodCode != null">
+				prod_code,
+			</if>
+			<if test="prodTitle != null">
+				prod_title,
+			</if>
+			<if test="typeId != null">
+				type_id,
+			</if>
+			<if test="fromLocation != null">
+				from_location,
+			</if>
+			<if test="toLocation != null">
+				to_location,
+			</if>
+			<if test="areaType != null">
+				area_type,
+			</if>
+			<if test="region != null">
+				region,
+			</if>
+			<if test="slice != null">
+				slice,
+			</if>
+			<if test="adminName != null">
+				admin_name,
+			</if>
+			<if test="days != null">
+				days,
+			</if>
+			<if test="collectionNum != null">
+				collection_num,
+			</if>
+			<if test="purchaseNum != null">
+				purchase_num,
+			</if>
+			<if test="introduction != null">
+				introduction,
+			</if>
+			<if test="stock != null">
+				stock,
+			</if>
+			<if test="infoCheck != null">
+				info_check,
+			</if>
+			<if test="groundStatus != null">
+				ground_status,
+			</if>
+			<if test="insurance != null">
+				insurance,
+			</if>
+			<if test="playCar != null">
+				play_car,
+			</if>
+			<if test="trafficInfo != null">
+				traffic_info,
+			</if>
+			<if test="cancelType != null">
+				cancel_type,
+			</if>
+			<if test="supportPart != null">
+				support_part,
+			</if>
+			<if test="modContactPerson != null">
+				mod_contact_person,
+			</if>
+			<if test="childPrice != null">
+				child_price,
+			</if>
+			<if test="adultPrice != null">
+				adult_price,
+			</if>
+			<if test="bigChildPrice != null">
+				big_child_price,
+			</if>
+			<if test="activated != null">
+				activated,
+			</if>
+			<if test="deleted != null">
+				deleted,
+			</if>
+			<if test="updatedDate != null">
+				updated_date,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="prodCode != null">
+				#{prodCode,jdbcType=INTEGER},
+			</if>
+			<if test="prodTitle != null">
+				#{prodTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="typeId != null">
+				#{typeId,jdbcType=INTEGER},
+			</if>
+			<if test="fromLocation != null">
+				#{fromLocation,jdbcType=VARCHAR},
+			</if>
+			<if test="toLocation != null">
+				#{toLocation,jdbcType=VARCHAR},
+			</if>
+			<if test="areaType != null">
+				#{areaType,jdbcType=INTEGER},
+			</if>
+			<if test="region != null">
+				#{region,jdbcType=VARCHAR},
+			</if>
+			<if test="slice != null">
+				#{slice,jdbcType=VARCHAR},
+			</if>
+			<if test="adminName != null">
+				#{adminName,jdbcType=VARCHAR},
+			</if>
+			<if test="days != null">
+				#{days,jdbcType=INTEGER},
+			</if>
+			<if test="collectionNum != null">
+				#{collectionNum,jdbcType=INTEGER},
+			</if>
+			<if test="purchaseNum != null">
+				#{purchaseNum,jdbcType=INTEGER},
+			</if>
+			<if test="introduction != null">
+				#{introduction,jdbcType=VARCHAR},
+			</if>
+			<if test="stock != null">
+				#{stock,jdbcType=INTEGER},
+			</if>
+			<if test="infoCheck != null">
+				#{infoCheck,jdbcType=INTEGER},
+			</if>
+			<if test="groundStatus != null">
+				#{groundStatus,jdbcType=INTEGER},
+			</if>
+			<if test="insurance != null">
+				#{insurance,jdbcType=VARCHAR},
+			</if>
+			<if test="playCar != null">
+				#{playCar,jdbcType=VARCHAR},
+			</if>
+			<if test="trafficInfo != null">
+				#{trafficInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="cancelType != null">
+				#{cancelType,jdbcType=INTEGER},
+			</if>
+			<if test="supportPart != null">
+				#{supportPart,jdbcType=INTEGER},
+			</if>
+			<if test="modContactPerson != null">
+				#{modContactPerson,jdbcType=INTEGER},
+			</if>
+			<if test="childPrice != null">
+				#{childPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="adultPrice != null">
+				#{adultPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="bigChildPrice != null">
+				#{bigChildPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="activated != null">
+				#{activated,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="updatedDate != null">
+				#{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.yilan.elantrip.domain.Prod">
+		update t_prod
+		<set>
+			<if test="prodCode != null">
+				prod_code = #{prodCode,jdbcType=INTEGER},
+			</if>
+			<if test="prodTitle != null">
+				prod_title = #{prodTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="typeId != null">
+				type_id = #{typeId,jdbcType=INTEGER},
+			</if>
+			<if test="fromLocation != null">
+				from_location = #{fromLocation,jdbcType=VARCHAR},
+			</if>
+			<if test="toLocation != null">
+				to_location = #{toLocation,jdbcType=VARCHAR},
+			</if>
+			<if test="areaType != null">
+				area_type = #{areaType,jdbcType=INTEGER},
+			</if>
+			<if test="region != null">
+				region = #{region,jdbcType=VARCHAR},
+			</if>
+			<if test="slice != null">
+				slice = #{slice,jdbcType=VARCHAR},
+			</if>
+			<if test="adminName != null">
+				admin_name = #{adminName,jdbcType=VARCHAR},
+			</if>
+			<if test="days != null">
+				days = #{days,jdbcType=INTEGER},
+			</if>
+			<if test="collectionNum != null">
+				collection_num = #{collectionNum,jdbcType=INTEGER},
+			</if>
+			<if test="purchaseNum != null">
+				purchase_num = #{purchaseNum,jdbcType=INTEGER},
+			</if>
+			<if test="introduction != null">
+				introduction = #{introduction,jdbcType=VARCHAR},
+			</if>
+			<if test="stock != null">
+				stock = #{stock,jdbcType=INTEGER},
+			</if>
+			<if test="infoCheck != null">
+				info_check = #{infoCheck,jdbcType=INTEGER},
+			</if>
+			<if test="groundStatus != null">
+				ground_status = #{groundStatus,jdbcType=INTEGER},
+			</if>
+			<if test="insurance != null">
+				insurance = #{insurance,jdbcType=VARCHAR},
+			</if>
+			<if test="playCar != null">
+				play_car = #{playCar,jdbcType=VARCHAR},
+			</if>
+			<if test="trafficInfo != null">
+				traffic_info = #{trafficInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="cancelType != null">
+				cancel_type = #{cancelType,jdbcType=INTEGER},
+			</if>
+			<if test="supportPart != null">
+				support_part = #{supportPart,jdbcType=INTEGER},
+			</if>
+			<if test="modContactPerson != null">
+				mod_contact_person =
+				#{modContactPerson,jdbcType=INTEGER},
+			</if>
+			<if test="childPrice != null">
+				child_price = #{childPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="adultPrice != null">
+				adult_price = #{adultPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="bigChildPrice != null">
+				big_child_price = #{bigChildPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="activated != null">
+				activated = #{activated,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				deleted = #{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="updatedDate != null">
+				updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where prod_id = #{prodId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.yilan.elantrip.domain.Prod">
+		update t_prod
+		set prod_code =
+		#{prodCode,jdbcType=INTEGER},
+		prod_title =
+		#{prodTitle,jdbcType=VARCHAR},
+		type_id = #{typeId,jdbcType=INTEGER},
+		from_location = #{fromLocation,jdbcType=VARCHAR},
+		to_location =
+		#{toLocation,jdbcType=VARCHAR},
+		area_type =
+		#{areaType,jdbcType=INTEGER},
+		region = #{region,jdbcType=VARCHAR},
+		slice = #{slice,jdbcType=VARCHAR},
+		admin_name =
+		#{adminName,jdbcType=VARCHAR},
+		days = #{days,jdbcType=INTEGER},
+		collection_num = #{collectionNum,jdbcType=INTEGER},
+		purchase_num =
+		#{purchaseNum,jdbcType=INTEGER},
+		introduction =
+		#{introduction,jdbcType=VARCHAR},
+		stock = #{stock,jdbcType=INTEGER},
+		info_check = #{infoCheck,jdbcType=INTEGER},
+		ground_status =
+		#{groundStatus,jdbcType=INTEGER},
+		insurance =
+		#{insurance,jdbcType=VARCHAR},
+		play_car = #{playCar,jdbcType=VARCHAR},
+		traffic_info = #{trafficInfo,jdbcType=VARCHAR},
+		cancel_type =
+		#{cancelType,jdbcType=INTEGER},
+		support_part =
+		#{supportPart,jdbcType=INTEGER},
+		mod_contact_person =
+		#{modContactPerson,jdbcType=INTEGER},
+		child_price =
+		#{childPrice,jdbcType=DOUBLE},
+		adult_price =
+		#{adultPrice,jdbcType=DOUBLE},
+		big_child_price =
+		#{bigChildPrice,jdbcType=DOUBLE},
+		activated =
+		#{activated,jdbcType=INTEGER},
+		deleted = #{deleted,jdbcType=INTEGER},
+		updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+		created_date =
+		#{createdDate,jdbcType=TIMESTAMP}
+		where prod_id =
+		#{prodId,jdbcType=INTEGER}
+	</update>
+	<select id="countTotal" resultType="java.lang.Integer">
+		SELECT count(*) FROM t_prod
+		<where>
+			<if test="params.prodCode!=null and params.prodCode!=''">
+				and prod_code like
+				"%"#{params.prodCode,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="params.prodTitle!=null and params.prodTitle!=''">
+				and prod_title like
+				"%"#{params.prodTitle,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="params.typeId!=null and params.typeId!=''">
+				and type_id = #{params.typeId,jdbcType=INTEGER}
+			</if>
+			<if test="params.groundStatus!=null and params.groundStatus!=''">
+				and ground_status =
+				#{params.groundStatus,jdbcType=INTEGER}
+			</if>
+			<if test="params.stock!=null and params.stock!=''">
+				<if test="params.stockType==1">
+					and stock &lt; #{params.stock}
+				</if>
+				<if test="params.stockType==2">
+					and stock &gt; #{params.stock}
+				</if>
+				<if test="params.stockType==3">
+					and stock=#{params.stock}
+				</if>
+			</if>
+			<if test="params.infoCheck!=null and params.infoCheck!=''">
+				and info_check = #{params.infoCheck,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectProductList" resultMap="BaseResultMap">
+		SELECT
+		distinct(p.prod_id),p.*
+		FROM
+		t_prod p,
+		t_prod_stock ps
+		<where>
+			<if test="params.days!=null and params.days!=''">
+				and days like
+				"%"#{params.days}"%"
+			</if>
+			<if test="params.floorPrice!=null and params.floorPrice!=''">
+				and child_price &gt; #{params.floorPrice}
+			</if>
+			<if test="params.highestPrice!=null and params.highestPrice!=''">
+				and child_price &lt; #{params.highestPrice}
+			</if>
+			<if test="params.fromLocation!=null and params.fromLocation!=''">
+				and from_location like
+				"%"#{params.fromLocation,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="params.areaType!=null and params.areaType!=''">
+				and area_type = #{params.areaType}
+			</if>
+			<if test="params.month!=null and params.month!=''">
+				and p.prod_id=ps.prod_id
+				and
+				(SELECT COUNT(*) FROM t_prod_stock WHERE ps.`month` = #{params.month}) > 0
+			</if>
+			<if test="params.prodCode!=null and params.prodCode!=''">
+				and prod_code like
+				"%"#{params.prodCode,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="params.prodTitle!=null and params.prodTitle!=''">
+				and prod_title like
+				"%"#{params.prodTitle,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="params.typeId!=null and params.typeId!=''">
+				and type_id = #{params.typeId,jdbcType=INTEGER}
+			</if>
+			<if test="params.stock!=null and params.stock!=''">
+				<if test="params.stockType==1">
+					and stock &lt; #{params.stock}
+				</if>
+				<if test="params.stockType==2">
+					and stock &gt; #{params.stock}
+				</if>
+				<if test="params.stockType==3">
+					and stock=#{params.stock}
+				</if>
+			</if>
+			<if test="params.infoCheck!=null and params.infoCheck!=''">
+				and info_check = #{params.infoCheck,jdbcType=INTEGER}
+			</if>
+		</where>
+		and ground_status = 1
+		limit
+		#{startNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+</mapper>

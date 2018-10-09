@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.ProdTicketMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.ProdTicket" >
+    <id column="inc_ticket_id" property="incTicketId" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="prod_id" property="prodId" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    inc_ticket_id, content, prod_id, remark, activated, deleted, updated_date, created_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_prod_inc_ticket
+    where inc_ticket_id = #{incTicketId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_prod_inc_ticket
+    where inc_ticket_id = #{incTicketId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.ProdTicket" >
+    <selectKey resultType="java.lang.Integer" keyProperty="incTicketId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_prod_inc_ticket (content, prod_id, remark, 
+      activated, deleted, updated_date, 
+      created_date)
+    values (#{content,jdbcType=VARCHAR}, #{prodId,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{activated,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, #{updatedDate,jdbcType=TIMESTAMP}, 
+      #{createdDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.ProdTicket" >
+    <selectKey resultType="java.lang.Integer" keyProperty="incTicketId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_prod_inc_ticket
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="prodId != null" >
+        prod_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="prodId != null" >
+        #{prodId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.ProdTicket" >
+    update t_prod_inc_ticket
+    <set >
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="prodId != null" >
+        prod_id = #{prodId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where inc_ticket_id = #{incTicketId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.ProdTicket" >
+    update t_prod_inc_ticket
+    set content = #{content,jdbcType=VARCHAR},
+      prod_id = #{prodId,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
+    where inc_ticket_id = #{incTicketId,jdbcType=INTEGER}
+  </update>
+   <select id="selectByProdId" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select *
+		from t_prod_inc_ticket
+		where prod_id = #{productId,jdbcType=INTEGER}
+		and activated = 1
+	</select>
+</mapper>

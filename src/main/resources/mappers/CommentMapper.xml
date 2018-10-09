@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.Comment" >
+    <id column="comment_id" property="commentId" jdbcType="INTEGER" />
+    <result column="trip_type" property="tripType" jdbcType="INTEGER" />
+    <result column="prod_id" property="prodId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="all_review" property="allReview" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="traffic_content" property="trafficContent" jdbcType="VARCHAR" />
+    <result column="traffic_grade" property="trafficGrade" jdbcType="INTEGER" />
+    <result column="hotel_content" property="hotelContent" jdbcType="VARCHAR" />
+    <result column="hotel_grade" property="hotelGrade" jdbcType="INTEGER" />
+    <result column="guide_content" property="guideContent" jdbcType="VARCHAR" />
+    <result column="guide_grade" property="guideGrade" jdbcType="INTEGER" />
+    <result column="food_content" property="foodContent" jdbcType="VARCHAR" />
+    <result column="food_grade" property="foodGrade" jdbcType="INTEGER" />
+    <result column="prod_grade" property="prodGrade" jdbcType="INTEGER" />
+    <result column="prod_content" property="prodContent" jdbcType="VARCHAR" />
+    <result column="trip_grade" property="tripGrade" jdbcType="INTEGER" />
+    <result column="trip_content" property="tripContent" jdbcType="VARCHAR" />
+    <result column="reply" property="reply" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="created_datetime" property="createdDatetime" jdbcType="TIMESTAMP" />
+    <result column="updated_datetime" property="updatedDatetime" jdbcType="TIMESTAMP" />
+    <result column="advice_people" property="advicePeople" jdbcType="INTEGER" />
+    <result column="advice_season" property="adviceSeason" jdbcType="INTEGER" />
+    <result column="advice_time" property="adviceTime" jdbcType="INTEGER" />
+    <result column="advice_preferred" property="advicePreferred" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    comment_id, trip_type, prod_id, order_id, product_name, all_review, grade, user_id, 
+    traffic_content, traffic_grade, hotel_content, hotel_grade, guide_content, guide_grade, 
+    food_content, food_grade, prod_grade, prod_content, trip_grade, trip_content, reply, 
+    activated, deleted, created_datetime, updated_datetime, advice_people, advice_season, 
+    advice_time, advice_preferred
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_comment
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_comment
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.Comment" >
+    <selectKey resultType="java.lang.Integer" keyProperty="commentId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_comment (trip_type, prod_id, order_id, 
+      product_name, all_review, grade, 
+      user_id, traffic_content, traffic_grade, 
+      hotel_content, hotel_grade, guide_content, 
+      guide_grade, food_content, food_grade, 
+      prod_grade, prod_content, trip_grade, 
+      trip_content, reply, activated, 
+      deleted, created_datetime, updated_datetime, 
+      advice_people, advice_season, advice_time, 
+      advice_preferred)
+    values (#{tripType,jdbcType=INTEGER}, #{prodId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, 
+      #{productName,jdbcType=VARCHAR}, #{allReview,jdbcType=VARCHAR}, #{grade,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{trafficContent,jdbcType=VARCHAR}, #{trafficGrade,jdbcType=INTEGER}, 
+      #{hotelContent,jdbcType=VARCHAR}, #{hotelGrade,jdbcType=INTEGER}, #{guideContent,jdbcType=VARCHAR}, 
+      #{guideGrade,jdbcType=INTEGER}, #{foodContent,jdbcType=VARCHAR}, #{foodGrade,jdbcType=INTEGER}, 
+      #{prodGrade,jdbcType=INTEGER}, #{prodContent,jdbcType=VARCHAR}, #{tripGrade,jdbcType=INTEGER}, 
+      #{tripContent,jdbcType=VARCHAR}, #{reply,jdbcType=VARCHAR}, #{activated,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=INTEGER}, #{createdDatetime,jdbcType=TIMESTAMP}, #{updatedDatetime,jdbcType=TIMESTAMP}, 
+      #{advicePeople,jdbcType=INTEGER}, #{adviceSeason,jdbcType=INTEGER}, #{adviceTime,jdbcType=INTEGER}, 
+      #{advicePreferred,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.Comment" >
+    <selectKey resultType="java.lang.Integer" keyProperty="commentId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tripType != null" >
+        trip_type,
+      </if>
+      <if test="prodId != null" >
+        prod_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="allReview != null" >
+        all_review,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="trafficContent != null" >
+        traffic_content,
+      </if>
+      <if test="trafficGrade != null" >
+        traffic_grade,
+      </if>
+      <if test="hotelContent != null" >
+        hotel_content,
+      </if>
+      <if test="hotelGrade != null" >
+        hotel_grade,
+      </if>
+      <if test="guideContent != null" >
+        guide_content,
+      </if>
+      <if test="guideGrade != null" >
+        guide_grade,
+      </if>
+      <if test="foodContent != null" >
+        food_content,
+      </if>
+      <if test="foodGrade != null" >
+        food_grade,
+      </if>
+      <if test="prodGrade != null" >
+        prod_grade,
+      </if>
+      <if test="prodContent != null" >
+        prod_content,
+      </if>
+      <if test="tripGrade != null" >
+        trip_grade,
+      </if>
+      <if test="tripContent != null" >
+        trip_content,
+      </if>
+      <if test="reply != null" >
+        reply,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createdDatetime != null" >
+        created_datetime,
+      </if>
+      <if test="updatedDatetime != null" >
+        updated_datetime,
+      </if>
+      <if test="advicePeople != null" >
+        advice_people,
+      </if>
+      <if test="adviceSeason != null" >
+        advice_season,
+      </if>
+      <if test="adviceTime != null" >
+        advice_time,
+      </if>
+      <if test="advicePreferred != null" >
+        advice_preferred,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tripType != null" >
+        #{tripType,jdbcType=INTEGER},
+      </if>
+      <if test="prodId != null" >
+        #{prodId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="allReview != null" >
+        #{allReview,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="trafficContent != null" >
+        #{trafficContent,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficGrade != null" >
+        #{trafficGrade,jdbcType=INTEGER},
+      </if>
+      <if test="hotelContent != null" >
+        #{hotelContent,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelGrade != null" >
+        #{hotelGrade,jdbcType=INTEGER},
+      </if>
+      <if test="guideContent != null" >
+        #{guideContent,jdbcType=VARCHAR},
+      </if>
+      <if test="guideGrade != null" >
+        #{guideGrade,jdbcType=INTEGER},
+      </if>
+      <if test="foodContent != null" >
+        #{foodContent,jdbcType=VARCHAR},
+      </if>
+      <if test="foodGrade != null" >
+        #{foodGrade,jdbcType=INTEGER},
+      </if>
+      <if test="prodGrade != null" >
+        #{prodGrade,jdbcType=INTEGER},
+      </if>
+      <if test="prodContent != null" >
+        #{prodContent,jdbcType=VARCHAR},
+      </if>
+      <if test="tripGrade != null" >
+        #{tripGrade,jdbcType=INTEGER},
+      </if>
+      <if test="tripContent != null" >
+        #{tripContent,jdbcType=VARCHAR},
+      </if>
+      <if test="reply != null" >
+        #{reply,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createdDatetime != null" >
+        #{createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDatetime != null" >
+        #{updatedDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advicePeople != null" >
+        #{advicePeople,jdbcType=INTEGER},
+      </if>
+      <if test="adviceSeason != null" >
+        #{adviceSeason,jdbcType=INTEGER},
+      </if>
+      <if test="adviceTime != null" >
+        #{adviceTime,jdbcType=INTEGER},
+      </if>
+      <if test="advicePreferred != null" >
+        #{advicePreferred,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.Comment" >
+    update t_comment
+    <set >
+      <if test="tripType != null" >
+        trip_type = #{tripType,jdbcType=INTEGER},
+      </if>
+      <if test="prodId != null" >
+        prod_id = #{prodId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="allReview != null" >
+        all_review = #{allReview,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="trafficContent != null" >
+        traffic_content = #{trafficContent,jdbcType=VARCHAR},
+      </if>
+      <if test="trafficGrade != null" >
+        traffic_grade = #{trafficGrade,jdbcType=INTEGER},
+      </if>
+      <if test="hotelContent != null" >
+        hotel_content = #{hotelContent,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelGrade != null" >
+        hotel_grade = #{hotelGrade,jdbcType=INTEGER},
+      </if>
+      <if test="guideContent != null" >
+        guide_content = #{guideContent,jdbcType=VARCHAR},
+      </if>
+      <if test="guideGrade != null" >
+        guide_grade = #{guideGrade,jdbcType=INTEGER},
+      </if>
+      <if test="foodContent != null" >
+        food_content = #{foodContent,jdbcType=VARCHAR},
+      </if>
+      <if test="foodGrade != null" >
+        food_grade = #{foodGrade,jdbcType=INTEGER},
+      </if>
+      <if test="prodGrade != null" >
+        prod_grade = #{prodGrade,jdbcType=INTEGER},
+      </if>
+      <if test="prodContent != null" >
+        prod_content = #{prodContent,jdbcType=VARCHAR},
+      </if>
+      <if test="tripGrade != null" >
+        trip_grade = #{tripGrade,jdbcType=INTEGER},
+      </if>
+      <if test="tripContent != null" >
+        trip_content = #{tripContent,jdbcType=VARCHAR},
+      </if>
+      <if test="reply != null" >
+        reply = #{reply,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createdDatetime != null" >
+        created_datetime = #{createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDatetime != null" >
+        updated_datetime = #{updatedDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="advicePeople != null" >
+        advice_people = #{advicePeople,jdbcType=INTEGER},
+      </if>
+      <if test="adviceSeason != null" >
+        advice_season = #{adviceSeason,jdbcType=INTEGER},
+      </if>
+      <if test="adviceTime != null" >
+        advice_time = #{adviceTime,jdbcType=INTEGER},
+      </if>
+      <if test="advicePreferred != null" >
+        advice_preferred = #{advicePreferred,jdbcType=INTEGER},
+      </if>
+    </set>
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+<!--   <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.Comment" >
+    update t_comment
+    set trip_type = #{tripType,jdbcType=INTEGER},
+      prod_id = #{prodId,jdbcType=INTEGER},
+      order_id = #{orderId,jdbcType=INTEGER},
+      product_name = #{productName,jdbcType=VARCHAR},
+      all_review = #{allReview,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      traffic_content = #{trafficContent,jdbcType=VARCHAR},
+      traffic_grade = #{trafficGrade,jdbcType=INTEGER},
+      hotel_content = #{hotelContent,jdbcType=VARCHAR},
+      hotel_grade = #{hotelGrade,jdbcType=INTEGER},
+      guide_content = #{guideContent,jdbcType=VARCHAR},
+      guide_grade = #{guideGrade,jdbcType=INTEGER},
+      food_content = #{foodContent,jdbcType=VARCHAR},
+      food_grade = #{foodGrade,jdbcType=INTEGER},
+      prod_grade = #{prodGrade,jdbcType=INTEGER},
+      prod_content = #{prodContent,jdbcType=VARCHAR},
+      trip_grade = #{tripGrade,jdbcType=INTEGER},
+      trip_content = #{tripContent,jdbcType=VARCHAR},
+      reply = #{reply,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      created_datetime = #{createdDatetime,jdbcType=TIMESTAMP},
+      updated_datetime = #{updatedDatetime,jdbcType=TIMESTAMP},
+      advice_people = #{advicePeople,jdbcType=INTEGER},
+      advice_season = #{adviceSeason,jdbcType=INTEGER},
+      advice_time = #{adviceTime,jdbcType=INTEGER},
+      advice_preferred = #{advicePreferred,jdbcType=INTEGER}
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update> -->
+  
+    <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.Comment" >
+    update t_comment
+    set 
+      reply = #{reply,jdbcType=VARCHAR}
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="countTotal" resultType="java.lang.Integer">
+		select count(banner_id) from
+		t_banner
+  </select>
+  
+  <select id="getCommentList" resultMap="BaseResultMap">
+		select prod_id,order_id,reply,product_name,prod_content,all_review,grade,user_id,traffic_content,traffic_grade,
+		hotel_content,hotel_grade,guide_content,guide_grade,food_content,food_grade,prod_grade,prod_content,trip_grade,
+		trip_content,reply,advice_people,advice_season,advice_time,advice_preferred from t_comment
+		
+		limit #{startNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+  
+  
+  
+</mapper>

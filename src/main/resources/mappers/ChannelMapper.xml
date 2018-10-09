@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.ChannelMapper">
+	<resultMap id="BaseResultMap"
+		type="com.yilan.elantrip.domain.Channel">
+		<id column="channel_id" property="channelId" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="num" property="num" jdbcType="VARCHAR" />
+		<result column="contact_person" property="contactPerson"
+			jdbcType="VARCHAR" />
+		<result column="contact_mobile" property="contactMobile"
+			jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="activated" property="activated"
+			jdbcType="INTEGER" />
+		<result column="deleted" property="deleted" jdbcType="INTEGER" />
+		<result column="created_date" property="createdDate"
+			jdbcType="TIMESTAMP" />
+		<result column="updated_date" property="updatedDate"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		channel_id, name, type, num, contact_person, contact_mobile, remark, activated,
+		deleted,
+		created_date, updated_date
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_channel
+		where channel_id = #{channelId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_channel
+		where channel_id = #{channelId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.yilan.elantrip.domain.Channel">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="channelId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_channel (name, type, num,
+		contact_person, contact_mobile, remark,
+		activated, deleted, created_date,
+		updated_date)
+		values (#{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},
+		#{num,jdbcType=VARCHAR},
+		#{contactPerson,jdbcType=VARCHAR}, #{contactMobile,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+		#{activated,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER},
+		#{createdDate,jdbcType=TIMESTAMP},
+		#{updatedDate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.yilan.elantrip.domain.Channel">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="channelId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_channel
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				name,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="num != null">
+				num,
+			</if>
+			<if test="contactPerson != null">
+				contact_person,
+			</if>
+			<if test="contactMobile != null">
+				contact_mobile,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="activated != null">
+				activated,
+			</if>
+			<if test="deleted != null">
+				deleted,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="updatedDate != null">
+				updated_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="num != null">
+				#{num,jdbcType=VARCHAR},
+			</if>
+			<if test="contactPerson != null">
+				#{contactPerson,jdbcType=VARCHAR},
+			</if>
+			<if test="contactMobile != null">
+				#{contactMobile,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="activated != null">
+				#{activated,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedDate != null">
+				#{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.yilan.elantrip.domain.Channel">
+		update t_channel
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="num != null">
+				num = #{num,jdbcType=VARCHAR},
+			</if>
+			<if test="contactPerson != null">
+				contact_person = #{contactPerson,jdbcType=VARCHAR},
+			</if>
+			<if test="contactMobile != null">
+				contact_mobile = #{contactMobile,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="activated != null">
+				activated = #{activated,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				deleted = #{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatedDate != null">
+				updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where channel_id = #{channelId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.yilan.elantrip.domain.Channel">
+		update t_channel
+		set name = #{name,jdbcType=VARCHAR},
+		type = #{type,jdbcType=INTEGER},
+		num = #{num,jdbcType=VARCHAR},
+		contact_person = #{contactPerson,jdbcType=VARCHAR},
+		contact_mobile = #{contactMobile,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR},
+		activated = #{activated,jdbcType=INTEGER},
+		deleted = #{deleted,jdbcType=INTEGER},
+		created_date = #{createdDate,jdbcType=TIMESTAMP},
+		updated_date = #{updatedDate,jdbcType=TIMESTAMP}
+		where channel_id = #{channelId,jdbcType=INTEGER}
+	</update>
+	<select id="countTotal" resultType="java.lang.Integer">
+		SELECT count(*) FROM t_channel
+		<where>
+			<if test="params.type!=null and params.type!=''">
+				and type=#{params.type}
+			</if>
+			<if test="params.num!=null and params.num!=''">
+				and num=#{params.num}
+			</if>
+			<if test="params.contactPerson!=null and params.contactPerson!=''">
+				and contactPerson=#{params.contactPerson}
+			</if>
+			<if test="params.contactMobile!=null and params.contactMobile!=''">
+				and contactMobile=#{params.contactMobile}
+			</if>
+			<if test="params.activated!=null and params.activated!=''">
+				and activated=#{params.activated}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectChannelList" resultMap="BaseResultMap">
+		SELECT
+		channel_id,
+		type,
+		num,
+		contact_person,
+		contact_mobile,
+		created_date,
+		remark,
+		activated
+		FROM t_channel
+		<where>
+			<if test="params.type!=null and params.type!=''">
+				and type=#{params.type}
+			</if>
+			<if test="params.num!=null and params.num!=''">
+				and num=#{params.num}
+			</if>
+			<if test="params.contactPerson!=null and params.contactPerson!=''">
+				and contactPerson=#{params.contactPerson}
+			</if>
+			<if test="params.contactMobile!=null and params.contactMobile!=''">
+				and contactMobile=#{params.contactMobile}
+			</if>
+			<if test="params.activated!=null and params.activated!=''">
+				and activated=#{params.activated}
+			</if>
+		</where>
+		limit #{startNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+</mapper>

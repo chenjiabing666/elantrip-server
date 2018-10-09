@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.InsuranceMapper">
+	<resultMap id="BaseResultMap"
+		type="com.yilan.elantrip.domain.Insurance">
+		<id column="insurance_id" property="insuranceId" jdbcType="INTEGER" />
+		<result column="num" property="num" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="classify" property="classify"
+			jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="detail" property="detail" jdbcType="VARCHAR" />
+		<result column="price" property="price" jdbcType="DOUBLE" />
+		<result column="activated" property="activated"
+			jdbcType="INTEGER" />
+		<result column="deleted" property="deleted" jdbcType="INTEGER" />
+		<result column="updated_date" property="updatedDate"
+			jdbcType="TIMESTAMP" />
+		<result column="created_date" property="createdDate"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<resultMap id="RSinsurance"
+		type="com.yilan.elantrip.domain.rs.RSinsuranceImage">
+		<result column="num" property="num" />
+		<result column="title" property="title" />
+		<result column="classify" property="classify" />
+		<result column="type" property="type" />
+		<result column="detail" property="detail"/>
+		<result column="price" property="price"/>
+		<result column="activated" property="activated"/>
+		<collection property="insuranceImages"
+			ofType="com.yilan.elantrip.domain.InsuranceImage">
+			<result column="image_url" property="imageUrl" />
+		</collection>
+	</resultMap>
+	<sql id="Base_Column_List">
+		insurance_id, num, title, classify, type, detail, price, activated, deleted,
+		updated_date,
+		created_date
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_insurance
+		where insurance_id = #{insuranceId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_insurance
+		where insurance_id = #{insuranceId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.yilan.elantrip.domain.Insurance">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="insuranceId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_insurance (num, title, classify,
+		type, detail, price,
+		activated, deleted, updated_date,
+		created_date)
+		values (#{num,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
+		#{classify,jdbcType=INTEGER},
+		#{type,jdbcType=INTEGER}, #{detail,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE},
+		#{activated,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER},
+		#{updatedDate,jdbcType=TIMESTAMP},
+		#{createdDate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.yilan.elantrip.domain.Insurance">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="insuranceId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_insurance
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="num != null">
+				num,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="classify != null">
+				classify,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="detail != null">
+				detail,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="activated != null">
+				activated,
+			</if>
+			<if test="deleted != null">
+				deleted,
+			</if>
+			<if test="updatedDate != null">
+				updated_date,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="num != null">
+				#{num,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="classify != null">
+				#{classify,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="detail != null">
+				#{detail,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=DOUBLE},
+			</if>
+			<if test="activated != null">
+				#{activated,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="updatedDate != null">
+				#{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.yilan.elantrip.domain.Insurance">
+		update t_insurance
+		<set>
+			<if test="num != null">
+				num = #{num,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="classify != null">
+				classify = #{classify,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="detail != null">
+				detail = #{detail,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=DOUBLE},
+			</if>
+			<if test="activated != null">
+				activated = #{activated,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				deleted = #{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="updatedDate != null">
+				updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where insurance_id = #{insuranceId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.yilan.elantrip.domain.Insurance">
+		update t_insurance
+		set num = #{num,jdbcType=VARCHAR},
+		title = #{title,jdbcType=VARCHAR},
+		classify = #{classify,jdbcType=INTEGER},
+		type = #{type,jdbcType=INTEGER},
+		detail = #{detail,jdbcType=VARCHAR},
+		price = #{price,jdbcType=DOUBLE},
+		activated = #{activated,jdbcType=INTEGER},
+		deleted = #{deleted,jdbcType=INTEGER},
+		updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+		created_date = #{createdDate,jdbcType=TIMESTAMP}
+		where insurance_id = #{insuranceId,jdbcType=INTEGER}
+	</update>
+	<select id="countTotal" resultType="java.lang.Integer">
+		SELECT count(*) FROM t_insurance
+		<where>
+			<if test="params.num!=null and params.num!=''">
+				and num like
+				"%"#{params.num,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="params.title!=null and params.title!=''">
+				and title like
+				"%"#{params.title,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="params.classify!=null and params.classify!=''">
+				and classify = #{params.classify,jdbcType=INTEGER}
+			</if>
+			<if test="params.type!=null and params.type!=''">
+				and type = #{params.type,jdbcType=INTEGER}
+			</if>
+			<if test="params.activated!=null and params.activated!=''">
+				and activated = #{params.activated,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectInsuranceList" resultMap="BaseResultMap">
+		SELECT
+		insurance_id,
+		num,
+		title,
+		classify,
+		type,
+		created_date,
+		activated
+		FROM t_insurance
+		<where>
+			<if test="params.num!=null and params.num!=''">
+				and num like
+				"%"#{params.num,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="params.title!=null and params.title!=''">
+				and title like
+				"%"#{params.title,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="params.classify!=null and params.classify!=''">
+				and classify = #{params.classify,jdbcType=INTEGER}
+			</if>
+			<if test="params.type!=null and params.type!=''">
+				and type = #{params.type,jdbcType=INTEGER}
+			</if>
+			<if test="params.activated!=null and params.activated!=''">
+				and activated = #{params.activated,jdbcType=INTEGER}
+			</if>
+		</where>
+		limit #{startNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	<select id="selectInsuranceDetail" resultMap="RSinsurance">
+		SELECT
+		i.num,
+		i.title,
+		i.classify,
+		i.type,
+		i.detail,
+		i.price,
+		i.activated,
+		ii.image_url
+		FROM
+		t_insurance i,
+		t_insurance_image ii
+		where
+		i.insurance_id = ii.insurance_id
+		and i.insurance_id = #{insuranceId}
+	</select>
+</mapper>

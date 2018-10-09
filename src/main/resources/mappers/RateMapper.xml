@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.RateMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.Rate" >
+    <id column="rate_id" property="rateId" jdbcType="INTEGER" />
+    <result column="rate" property="rate" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rate_id, rate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_exchange_rate
+    where rate_id = #{rateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_exchange_rate
+    where rate_id = #{rateId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.Rate" >
+    <selectKey resultType="java.lang.Integer" keyProperty="rateId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_exchange_rate (rate)
+    values (#{rate,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.Rate" >
+    <selectKey resultType="java.lang.Integer" keyProperty="rateId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_exchange_rate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rate != null" >
+        rate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rate != null" >
+        #{rate,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.Rate" >
+    update t_exchange_rate
+<set >
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=REAL},
+      </if>
+    </set>
+    where rate_id = 1
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.Rate" >
+    update t_exchange_rate
+    set rate = #{rate,jdbcType=REAL}
+    where rate_id = 1
+  </update>
+  
+  <select id="getRate" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_exchange_rate
+    where rate_id = 1
+  </select>
+</mapper>

@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.CustomTripMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.CustomTrip" >
+    <id column="custom_app_id" property="customAppId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="from_location" property="fromLocation" jdbcType="VARCHAR" />
+    <result column="to_location" property="toLocation" jdbcType="VARCHAR" />
+    <result column="adult" property="adult" jdbcType="INTEGER" />
+    <result column="child" property="child" jdbcType="INTEGER" />
+    <result column="start_date" property="startDate" jdbcType="DATE" />
+    <result column="end_date" property="endDate" jdbcType="DATE" />
+    <result column="buget" property="buget" jdbcType="DOUBLE" />
+    <result column="hotel_need" property="hotelNeed" jdbcType="INTEGER" />
+    <result column="trip_theme" property="tripTheme" jdbcType="INTEGER" />
+    <result column="room_num" property="roomNum" jdbcType="INTEGER" />
+    <result column="room_type" property="roomType" jdbcType="INTEGER" />
+    <result column="is_smoke" property="isSmoke" jdbcType="INTEGER" />
+    <result column="car_type" property="carType" jdbcType="INTEGER" />
+    <result column="car_size" property="carSize" jdbcType="INTEGER" />
+    <result column="is_need_dis" property="isNeedDis" jdbcType="INTEGER" />
+    <result column="food_sta" property="foodSta" jdbcType="INTEGER" />
+    <result column="guide_sta" property="guideSta" jdbcType="INTEGER" />
+    <result column="must_view" property="mustView" jdbcType="VARCHAR" />
+    <result column="other_need" property="otherNeed" jdbcType="VARCHAR" />
+    <result column="contact_name" property="contactName" jdbcType="VARCHAR" />
+    <result column="contact_mobile" property="contactMobile" jdbcType="VARCHAR" />
+    <result column="contact_email" property="contactEmail" jdbcType="VARCHAR" />
+    <result column="contact_weixin" property="contactWeixin" jdbcType="VARCHAR" />
+    <result column="referee" property="referee" jdbcType="VARCHAR" />
+    <result column="file" property="file" jdbcType="VARCHAR" />
+    <result column="product_title" property="productTitle" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="created_datetime" property="createdDatetime" jdbcType="TIMESTAMP" />
+    <result column="updated_datetime" property="updatedDatetime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="travel_code" property="travelCode" jdbcType="INTEGER" />
+    <result column="pay_method" property="payMethod" jdbcType="INTEGER" />
+    <result column="down_pay" property="downPay" jdbcType="DOUBLE" />
+    <result column="final_pay" property="finalPay" jdbcType="DOUBLE" />
+    <result column="invoice_id" property="invoiceId" jdbcType="INTEGER" />
+    <result column="teenager" property="teenager" jdbcType="INTEGER" />
+    <result column="trip_desc" property="tripDesc" jdbcType="VARCHAR" />
+    <result column="finalpay_method" property="finalpayMethod" jdbcType="INTEGER" />
+    <result column="finalpay_time" property="finalpayTime" jdbcType="VARCHAR" />
+    <result column="insurance_id" property="insuranceId" jdbcType="INTEGER" />
+    <result column="contract_url" property="contractUrl" jdbcType="VARCHAR" />
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    custom_app_id, user_id, from_location, to_location, adult, child, start_date, end_date, 
+    buget, hotel_need, trip_theme, room_num, room_type, is_smoke, car_type, car_size, 
+    is_need_dis, food_sta, guide_sta, must_view, other_need, contact_name, contact_mobile, 
+    contact_email, contact_weixin, referee, file, product_title, price, remark, activated, 
+    deleted, created_datetime, updated_datetime, type, travel_code, pay_method, down_pay, 
+    final_pay, invoice_id, teenager, trip_desc, finalpay_method, finalpay_time, insurance_id, 
+    contract_url, total_num
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_custom_app
+    where custom_app_id = #{customAppId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_custom_app
+    where custom_app_id = #{customAppId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.CustomTrip" >
+    <selectKey resultType="java.lang.Integer" keyProperty="customAppId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_custom_app (user_id, from_location, to_location, 
+      adult, child, start_date, 
+      end_date, buget, hotel_need, 
+      trip_theme, room_num, room_type, 
+      is_smoke, car_type, car_size, 
+      is_need_dis, food_sta, guide_sta, 
+      must_view, other_need, contact_name, 
+      contact_mobile, contact_email, contact_weixin, 
+      referee, file, product_title, 
+      price, remark, activated, 
+      deleted, created_datetime, updated_datetime, 
+      type, travel_code, pay_method, 
+      down_pay, final_pay, invoice_id, 
+      teenager, trip_desc, finalpay_method, 
+      finalpay_time, insurance_id, contract_url, 
+      total_num)
+    values (#{userId,jdbcType=INTEGER}, #{fromLocation,jdbcType=VARCHAR}, #{toLocation,jdbcType=VARCHAR}, 
+      #{adult,jdbcType=INTEGER}, #{child,jdbcType=INTEGER}, #{startDate,jdbcType=DATE}, 
+      #{endDate,jdbcType=DATE}, #{buget,jdbcType=DOUBLE}, #{hotelNeed,jdbcType=INTEGER}, 
+      #{tripTheme,jdbcType=INTEGER}, #{roomNum,jdbcType=INTEGER}, #{roomType,jdbcType=INTEGER}, 
+      #{isSmoke,jdbcType=INTEGER}, #{carType,jdbcType=INTEGER}, #{carSize,jdbcType=INTEGER}, 
+      #{isNeedDis,jdbcType=INTEGER}, #{foodSta,jdbcType=INTEGER}, #{guideSta,jdbcType=INTEGER}, 
+      #{mustView,jdbcType=VARCHAR}, #{otherNeed,jdbcType=VARCHAR}, #{contactName,jdbcType=VARCHAR}, 
+      #{contactMobile,jdbcType=VARCHAR}, #{contactEmail,jdbcType=VARCHAR}, #{contactWeixin,jdbcType=VARCHAR}, 
+      #{referee,jdbcType=VARCHAR}, #{file,jdbcType=VARCHAR}, #{productTitle,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DOUBLE}, #{remark,jdbcType=VARCHAR}, #{activated,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=INTEGER}, #{createdDatetime,jdbcType=TIMESTAMP}, #{updatedDatetime,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=INTEGER}, #{travelCode,jdbcType=INTEGER}, #{payMethod,jdbcType=INTEGER}, 
+      #{downPay,jdbcType=DOUBLE}, #{finalPay,jdbcType=DOUBLE}, #{invoiceId,jdbcType=INTEGER}, 
+      #{teenager,jdbcType=INTEGER}, #{tripDesc,jdbcType=VARCHAR}, #{finalpayMethod,jdbcType=INTEGER}, 
+      #{finalpayTime,jdbcType=VARCHAR}, #{insuranceId,jdbcType=INTEGER}, #{contractUrl,jdbcType=VARCHAR}, 
+      #{totalNum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.CustomTrip" >
+    <selectKey resultType="java.lang.Integer" keyProperty="customAppId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_custom_app
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="fromLocation != null" >
+        from_location,
+      </if>
+      <if test="toLocation != null" >
+        to_location,
+      </if>
+      <if test="adult != null" >
+        adult,
+      </if>
+      <if test="child != null" >
+        child,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="buget != null" >
+        buget,
+      </if>
+      <if test="hotelNeed != null" >
+        hotel_need,
+      </if>
+      <if test="tripTheme != null" >
+        trip_theme,
+      </if>
+      <if test="roomNum != null" >
+        room_num,
+      </if>
+      <if test="roomType != null" >
+        room_type,
+      </if>
+      <if test="isSmoke != null" >
+        is_smoke,
+      </if>
+      <if test="carType != null" >
+        car_type,
+      </if>
+      <if test="carSize != null" >
+        car_size,
+      </if>
+      <if test="isNeedDis != null" >
+        is_need_dis,
+      </if>
+      <if test="foodSta != null" >
+        food_sta,
+      </if>
+      <if test="guideSta != null" >
+        guide_sta,
+      </if>
+      <if test="mustView != null" >
+        must_view,
+      </if>
+      <if test="otherNeed != null" >
+        other_need,
+      </if>
+      <if test="contactName != null" >
+        contact_name,
+      </if>
+      <if test="contactMobile != null" >
+        contact_mobile,
+      </if>
+      <if test="contactEmail != null" >
+        contact_email,
+      </if>
+      <if test="contactWeixin != null" >
+        contact_weixin,
+      </if>
+      <if test="referee != null" >
+        referee,
+      </if>
+      <if test="file != null" >
+        file,
+      </if>
+      <if test="productTitle != null" >
+        product_title,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="createdDatetime != null" >
+        created_datetime,
+      </if>
+      <if test="updatedDatetime != null" >
+        updated_datetime,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="travelCode != null" >
+        travel_code,
+      </if>
+      <if test="payMethod != null" >
+        pay_method,
+      </if>
+      <if test="downPay != null" >
+        down_pay,
+      </if>
+      <if test="finalPay != null" >
+        final_pay,
+      </if>
+      <if test="invoiceId != null" >
+        invoice_id,
+      </if>
+      <if test="teenager != null" >
+        teenager,
+      </if>
+      <if test="tripDesc != null" >
+        trip_desc,
+      </if>
+      <if test="finalpayMethod != null" >
+        finalpay_method,
+      </if>
+      <if test="finalpayTime != null" >
+        finalpay_time,
+      </if>
+      <if test="insuranceId != null" >
+        insurance_id,
+      </if>
+      <if test="contractUrl != null" >
+        contract_url,
+      </if>
+      <if test="totalNum != null" >
+        total_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="fromLocation != null" >
+        #{fromLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="toLocation != null" >
+        #{toLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="adult != null" >
+        #{adult,jdbcType=INTEGER},
+      </if>
+      <if test="child != null" >
+        #{child,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="buget != null" >
+        #{buget,jdbcType=DOUBLE},
+      </if>
+      <if test="hotelNeed != null" >
+        #{hotelNeed,jdbcType=INTEGER},
+      </if>
+      <if test="tripTheme != null" >
+        #{tripTheme,jdbcType=INTEGER},
+      </if>
+      <if test="roomNum != null" >
+        #{roomNum,jdbcType=INTEGER},
+      </if>
+      <if test="roomType != null" >
+        #{roomType,jdbcType=INTEGER},
+      </if>
+      <if test="isSmoke != null" >
+        #{isSmoke,jdbcType=INTEGER},
+      </if>
+      <if test="carType != null" >
+        #{carType,jdbcType=INTEGER},
+      </if>
+      <if test="carSize != null" >
+        #{carSize,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedDis != null" >
+        #{isNeedDis,jdbcType=INTEGER},
+      </if>
+      <if test="foodSta != null" >
+        #{foodSta,jdbcType=INTEGER},
+      </if>
+      <if test="guideSta != null" >
+        #{guideSta,jdbcType=INTEGER},
+      </if>
+      <if test="mustView != null" >
+        #{mustView,jdbcType=VARCHAR},
+      </if>
+      <if test="otherNeed != null" >
+        #{otherNeed,jdbcType=VARCHAR},
+      </if>
+      <if test="contactName != null" >
+        #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactMobile != null" >
+        #{contactMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="contactEmail != null" >
+        #{contactEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="contactWeixin != null" >
+        #{contactWeixin,jdbcType=VARCHAR},
+      </if>
+      <if test="referee != null" >
+        #{referee,jdbcType=VARCHAR},
+      </if>
+      <if test="file != null" >
+        #{file,jdbcType=VARCHAR},
+      </if>
+      <if test="productTitle != null" >
+        #{productTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createdDatetime != null" >
+        #{createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDatetime != null" >
+        #{updatedDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="travelCode != null" >
+        #{travelCode,jdbcType=INTEGER},
+      </if>
+      <if test="payMethod != null" >
+        #{payMethod,jdbcType=INTEGER},
+      </if>
+      <if test="downPay != null" >
+        #{downPay,jdbcType=DOUBLE},
+      </if>
+      <if test="finalPay != null" >
+        #{finalPay,jdbcType=DOUBLE},
+      </if>
+      <if test="invoiceId != null" >
+        #{invoiceId,jdbcType=INTEGER},
+      </if>
+      <if test="teenager != null" >
+        #{teenager,jdbcType=INTEGER},
+      </if>
+      <if test="tripDesc != null" >
+        #{tripDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="finalpayMethod != null" >
+        #{finalpayMethod,jdbcType=INTEGER},
+      </if>
+      <if test="finalpayTime != null" >
+        #{finalpayTime,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceId != null" >
+        #{insuranceId,jdbcType=INTEGER},
+      </if>
+      <if test="contractUrl != null" >
+        #{contractUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="totalNum != null" >
+        #{totalNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.CustomTrip" >
+    update t_custom_app
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="fromLocation != null" >
+        from_location = #{fromLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="toLocation != null" >
+        to_location = #{toLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="adult != null" >
+        adult = #{adult,jdbcType=INTEGER},
+      </if>
+      <if test="child != null" >
+        child = #{child,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="buget != null" >
+        buget = #{buget,jdbcType=DOUBLE},
+      </if>
+      <if test="hotelNeed != null" >
+        hotel_need = #{hotelNeed,jdbcType=INTEGER},
+      </if>
+      <if test="tripTheme != null" >
+        trip_theme = #{tripTheme,jdbcType=INTEGER},
+      </if>
+      <if test="roomNum != null" >
+        room_num = #{roomNum,jdbcType=INTEGER},
+      </if>
+      <if test="roomType != null" >
+        room_type = #{roomType,jdbcType=INTEGER},
+      </if>
+      <if test="isSmoke != null" >
+        is_smoke = #{isSmoke,jdbcType=INTEGER},
+      </if>
+      <if test="carType != null" >
+        car_type = #{carType,jdbcType=INTEGER},
+      </if>
+      <if test="carSize != null" >
+        car_size = #{carSize,jdbcType=INTEGER},
+      </if>
+      <if test="isNeedDis != null" >
+        is_need_dis = #{isNeedDis,jdbcType=INTEGER},
+      </if>
+      <if test="foodSta != null" >
+        food_sta = #{foodSta,jdbcType=INTEGER},
+      </if>
+      <if test="guideSta != null" >
+        guide_sta = #{guideSta,jdbcType=INTEGER},
+      </if>
+      <if test="mustView != null" >
+        must_view = #{mustView,jdbcType=VARCHAR},
+      </if>
+      <if test="otherNeed != null" >
+        other_need = #{otherNeed,jdbcType=VARCHAR},
+      </if>
+      <if test="contactName != null" >
+        contact_name = #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactMobile != null" >
+        contact_mobile = #{contactMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="contactEmail != null" >
+        contact_email = #{contactEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="contactWeixin != null" >
+        contact_weixin = #{contactWeixin,jdbcType=VARCHAR},
+      </if>
+      <if test="referee != null" >
+        referee = #{referee,jdbcType=VARCHAR},
+      </if>
+      <if test="file != null" >
+        file = #{file,jdbcType=VARCHAR},
+      </if>
+      <if test="productTitle != null" >
+        product_title = #{productTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createdDatetime != null" >
+        created_datetime = #{createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedDatetime != null" >
+        updated_datetime = #{updatedDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="travelCode != null" >
+        travel_code = #{travelCode,jdbcType=INTEGER},
+      </if>
+      <if test="payMethod != null" >
+        pay_method = #{payMethod,jdbcType=INTEGER},
+      </if>
+      <if test="downPay != null" >
+        down_pay = #{downPay,jdbcType=DOUBLE},
+      </if>
+      <if test="finalPay != null" >
+        final_pay = #{finalPay,jdbcType=DOUBLE},
+      </if>
+      <if test="invoiceId != null" >
+        invoice_id = #{invoiceId,jdbcType=INTEGER},
+      </if>
+      <if test="teenager != null" >
+        teenager = #{teenager,jdbcType=INTEGER},
+      </if>
+      <if test="tripDesc != null" >
+        trip_desc = #{tripDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="finalpayMethod != null" >
+        finalpay_method = #{finalpayMethod,jdbcType=INTEGER},
+      </if>
+      <if test="finalpayTime != null" >
+        finalpay_time = #{finalpayTime,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceId != null" >
+        insurance_id = #{insuranceId,jdbcType=INTEGER},
+      </if>
+      <if test="contractUrl != null" >
+        contract_url = #{contractUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="totalNum != null" >
+        total_num = #{totalNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where custom_app_id = #{customAppId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.CustomTrip" >
+    update t_custom_app
+    set user_id = #{userId,jdbcType=INTEGER},
+      from_location = #{fromLocation,jdbcType=VARCHAR},
+      to_location = #{toLocation,jdbcType=VARCHAR},
+      adult = #{adult,jdbcType=INTEGER},
+      child = #{child,jdbcType=INTEGER},
+      start_date = #{startDate,jdbcType=DATE},
+      end_date = #{endDate,jdbcType=DATE},
+      buget = #{buget,jdbcType=DOUBLE},
+      hotel_need = #{hotelNeed,jdbcType=INTEGER},
+      trip_theme = #{tripTheme,jdbcType=INTEGER},
+      room_num = #{roomNum,jdbcType=INTEGER},
+      room_type = #{roomType,jdbcType=INTEGER},
+      is_smoke = #{isSmoke,jdbcType=INTEGER},
+      car_type = #{carType,jdbcType=INTEGER},
+      car_size = #{carSize,jdbcType=INTEGER},
+      is_need_dis = #{isNeedDis,jdbcType=INTEGER},
+      food_sta = #{foodSta,jdbcType=INTEGER},
+      guide_sta = #{guideSta,jdbcType=INTEGER},
+      must_view = #{mustView,jdbcType=VARCHAR},
+      other_need = #{otherNeed,jdbcType=VARCHAR},
+      contact_name = #{contactName,jdbcType=VARCHAR},
+      contact_mobile = #{contactMobile,jdbcType=VARCHAR},
+      contact_email = #{contactEmail,jdbcType=VARCHAR},
+      contact_weixin = #{contactWeixin,jdbcType=VARCHAR},
+      referee = #{referee,jdbcType=VARCHAR},
+      file = #{file,jdbcType=VARCHAR},
+      product_title = #{productTitle,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      remark = #{remark,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      created_datetime = #{createdDatetime,jdbcType=TIMESTAMP},
+      updated_datetime = #{updatedDatetime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER},
+      travel_code = #{travelCode,jdbcType=INTEGER},
+      pay_method = #{payMethod,jdbcType=INTEGER},
+      down_pay = #{downPay,jdbcType=DOUBLE},
+      final_pay = #{finalPay,jdbcType=DOUBLE},
+      invoice_id = #{invoiceId,jdbcType=INTEGER},
+      teenager = #{teenager,jdbcType=INTEGER},
+      trip_desc = #{tripDesc,jdbcType=VARCHAR},
+      finalpay_method = #{finalpayMethod,jdbcType=INTEGER},
+      finalpay_time = #{finalpayTime,jdbcType=VARCHAR},
+      insurance_id = #{insuranceId,jdbcType=INTEGER},
+      contract_url = #{contractUrl,jdbcType=VARCHAR},
+      total_num = #{totalNum,jdbcType=VARCHAR}
+    where custom_app_id = #{customAppId,jdbcType=INTEGER}
+  </update>
+  
+  
+    <insert id="addTripOne" parameterType="com.yilan.elantrip.domain.CustomTrip" >
+    <selectKey resultType="java.lang.Integer" keyProperty="customAppId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_custom_app (type, from_location, to_location, 
+      adult, child, start_date, 
+      end_date)
+    values (#{userId,jdbcType=INTEGER}, #{fromLocation,jdbcType=VARCHAR}, #{toLocation,jdbcType=VARCHAR}, 
+      #{adult,jdbcType=INTEGER}, #{child,jdbcType=INTEGER}, #{startDate,jdbcType=DATE}, 
+      #{endDate,jdbcType=DATE})
+  </insert>
+  
+  <update id="addTripTwo" parameterType="com.yilan.elantrip.domain.CustomTrip" >
+    update t_custom_app
+    set 
+      buget = #{buget,jdbcType=DOUBLE},
+      hotel_need = #{hotelNeed,jdbcType=INTEGER},
+      trip_theme = #{tripTheme,jdbcType=INTEGER},
+      room_num = #{roomNum,jdbcType=INTEGER},
+      room_type = #{roomType,jdbcType=INTEGER},
+      is_smoke = #{isSmoke,jdbcType=INTEGER},
+      car_type = #{carType,jdbcType=INTEGER},
+      car_size = #{carSize,jdbcType=INTEGER},
+      is_need_dis = #{isNeedDis,jdbcType=INTEGER},
+      food_sta = #{foodSta,jdbcType=INTEGER},
+      guide_sta = #{guideSta,jdbcType=INTEGER},
+      must_view = #{mustView,jdbcType=VARCHAR},
+      other_need = #{otherNeed,jdbcType=VARCHAR}
+      
+      where custom_app_id = 1
+   
+  </update>
+  
+    <update id="addTripThree" parameterType="com.yilan.elantrip.domain.CustomTrip" >
+    update t_custom_app
+    set 
+      contact_name = #{contactName,jdbcType=VARCHAR},
+      contact_mobile = #{contactMobile,jdbcType=VARCHAR},
+      contact_email = #{contactEmail,jdbcType=VARCHAR},
+      contact_weixin = #{contactWeixin,jdbcType=VARCHAR},
+    where custom_app_id = 1
+  </update>
+  
+      <update id="placeOder" parameterType="com.yilan.elantrip.domain.CustomTrip" >
+    update t_custom_app
+    set 
+      contact_name = #{contactName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER}, 
+      referee = #{referee,jdbcType=VARCHAR},
+    product_title = #{productTitle,jdbcType=VARCHAR},
+    trip_desc = #{tripDesc,jdbcType=VARCHAR},
+    trip_code = #{tripCode,jdbcType=INTEGER},
+    price = #{price,jdbcType=DOUBLE},
+      payMethod = #{pay_method, jdbcType=INTEGER},
+    downPay = #{down_pay, jdbcType=DOUBLE},
+    finalPay = #{final_pay, jdbcType=DOUBLE},
+    dueTime = #{finalpay_time, jdbcType=VARCHAR},
+      insuranceId = #{insurance_id, jdbcType=INTEGER},
+    totalPeople = #{teenager, jdbcType=INTEGER},
+    invoiceId = #{invoice_id, jdbcType=INTEGER},
+    remark = #{remark, jdbcType=VARCHAR}
+    where custom_app_id = 1
+  </update>
+  
+  <select id="countTotal" resultType="java.lang.Integer">
+		select count(custom_app_id) from
+		t_custom_app
+  </select>
+  
+  <select id="selectBannerList" resultMap="BaseResultMap">
+		select custom_app_id,travel_code,product_title,user_id,referee,price,from_location,start_date,create_date,activated from t_banner
+		
+		limit #{pageNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

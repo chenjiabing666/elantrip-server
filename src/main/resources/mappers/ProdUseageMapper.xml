@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.ProdUseageMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.ProdUseage" >
+    <id column="useage_id" property="useageId" jdbcType="INTEGER" />
+    <result column="prod_id" property="prodId" jdbcType="INTEGER" />
+    <result column="trip_confirm" property="tripConfirm" jdbcType="VARCHAR" />
+    <result column="appointment" property="appointment" jdbcType="VARCHAR" />
+    <result column="confirm_message" property="confirmMessage" jdbcType="VARCHAR" />
+    <result column="holiday" property="holiday" jdbcType="VARCHAR" />
+    <result column="trip_day" property="tripDay" jdbcType="VARCHAR" />
+    <result column="other_remark" property="otherRemark" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    useage_id, prod_id, trip_confirm, appointment, confirm_message, holiday, trip_day, 
+    other_remark, activated, deleted, updated_date, created_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_prod_useage
+    where useage_id = #{useageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_prod_useage
+    where useage_id = #{useageId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.ProdUseage" >
+    <selectKey resultType="java.lang.Integer" keyProperty="useageId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_prod_useage (prod_id, trip_confirm, appointment, 
+      confirm_message, holiday, trip_day, 
+      other_remark, activated, deleted, 
+      updated_date, created_date)
+    values (#{prodId,jdbcType=INTEGER}, #{tripConfirm,jdbcType=VARCHAR}, #{appointment,jdbcType=VARCHAR}, 
+      #{confirmMessage,jdbcType=VARCHAR}, #{holiday,jdbcType=VARCHAR}, #{tripDay,jdbcType=VARCHAR}, 
+      #{otherRemark,jdbcType=VARCHAR}, #{activated,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, 
+      #{updatedDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.ProdUseage" >
+    <selectKey resultType="java.lang.Integer" keyProperty="useageId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_prod_useage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="prodId != null" >
+        prod_id,
+      </if>
+      <if test="tripConfirm != null" >
+        trip_confirm,
+      </if>
+      <if test="appointment != null" >
+        appointment,
+      </if>
+      <if test="confirmMessage != null" >
+        confirm_message,
+      </if>
+      <if test="holiday != null" >
+        holiday,
+      </if>
+      <if test="tripDay != null" >
+        trip_day,
+      </if>
+      <if test="otherRemark != null" >
+        other_remark,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="prodId != null" >
+        #{prodId,jdbcType=INTEGER},
+      </if>
+      <if test="tripConfirm != null" >
+        #{tripConfirm,jdbcType=VARCHAR},
+      </if>
+      <if test="appointment != null" >
+        #{appointment,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmMessage != null" >
+        #{confirmMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="holiday != null" >
+        #{holiday,jdbcType=VARCHAR},
+      </if>
+      <if test="tripDay != null" >
+        #{tripDay,jdbcType=VARCHAR},
+      </if>
+      <if test="otherRemark != null" >
+        #{otherRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.ProdUseage" >
+    update t_prod_useage
+    <set >
+      <if test="prodId != null" >
+        prod_id = #{prodId,jdbcType=INTEGER},
+      </if>
+      <if test="tripConfirm != null" >
+        trip_confirm = #{tripConfirm,jdbcType=VARCHAR},
+      </if>
+      <if test="appointment != null" >
+        appointment = #{appointment,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmMessage != null" >
+        confirm_message = #{confirmMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="holiday != null" >
+        holiday = #{holiday,jdbcType=VARCHAR},
+      </if>
+      <if test="tripDay != null" >
+        trip_day = #{tripDay,jdbcType=VARCHAR},
+      </if>
+      <if test="otherRemark != null" >
+        other_remark = #{otherRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where useage_id = #{useageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.ProdUseage" >
+    update t_prod_useage
+    set prod_id = #{prodId,jdbcType=INTEGER},
+      trip_confirm = #{tripConfirm,jdbcType=VARCHAR},
+      appointment = #{appointment,jdbcType=VARCHAR},
+      confirm_message = #{confirmMessage,jdbcType=VARCHAR},
+      holiday = #{holiday,jdbcType=VARCHAR},
+      trip_day = #{tripDay,jdbcType=VARCHAR},
+      other_remark = #{otherRemark,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
+    where useage_id = #{useageId,jdbcType=INTEGER}
+  </update>
+</mapper>

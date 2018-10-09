@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.CouponMapper">
+	<resultMap id="BaseResultMap"
+		type="com.yilan.elantrip.domain.Coupon">
+		<id column="coupon_id" property="couponId" jdbcType="INTEGER" />
+		<result column="type_id" property="typeId" jdbcType="INTEGER" />
+		<result column="coupon_type" property="couponType"
+			jdbcType="INTEGER" />
+		<result column="coupon_name" property="couponName"
+			jdbcType="VARCHAR" />
+		<result column="price" property="price" jdbcType="DOUBLE" />
+		<result column="is_effective" property="isEffective"
+			jdbcType="INTEGER" />
+		<result column="total_count" property="totalCount"
+			jdbcType="INTEGER" />
+		<result column="coupon_recieved" property="couponRecieved"
+			jdbcType="INTEGER" />
+		<result column="coupon_used" property="couponUsed"
+			jdbcType="INTEGER" />
+		<result column="users_suitable" property="usersSuitable"
+			jdbcType="VARCHAR" />
+		<result column="recieve_type" property="recieveType"
+			jdbcType="VARCHAR" />
+		<result column="requirment" property="requirment"
+			jdbcType="INTEGER" />
+		<result column="full_money" property="fullMoney"
+			jdbcType="DOUBLE" />
+		<result column="num_limit" property="numLimit"
+			jdbcType="INTEGER" />
+		<result column="launch_stime" property="launchStime"
+			jdbcType="DATE" />
+		<result column="launch_etime" property="launchEtime"
+			jdbcType="DATE" />
+		<result column="activated" property="activated"
+			jdbcType="INTEGER" />
+		<result column="deleted" property="deleted" jdbcType="INTEGER" />
+		<result column="updated_date" property="updatedDate"
+			jdbcType="TIMESTAMP" />
+		<result column="created_date" property="createdDate"
+			jdbcType="TIMESTAMP" />
+		<result column="expiry_start_date" property="expiryStartDate"
+			jdbcType="TIMESTAMP" />
+		<result column="expriy_end_date" property="expriyEndDate"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="RScoupon"
+		type="com.yilan.elantrip.domain.rs.RScoupon">
+		<result column="coupon_name" property="couponName" />
+		<result column="coupon_type" property="couponType" />
+		<result column="price" property="price" />
+		<result column="total_count" property="totalCount" />
+		<result column="requirment" property="requirment" />
+		<result column="expiry_start_date" property="expiryStartDate" />
+		<result column="expiry_end_date" property="expiryEndDate" />
+		<result column="prodType" property="prodType" />
+		<collection property="couponDetailsList"
+			ofType="com.yilan.elantrip.domain.CouponDetails">
+			<result column="user_coupon_id" property="userCouponId" />
+			<result column="user_id" property="userId" />
+			<result column="coupo_id" property="coupoId" />
+			<result column="order_num" property="orderNum" />
+			<result column="created_date" property="createdDate" />
+			<result column="used_date" property="usedDate" />
+			<result column="activated" property="activated" />
+		</collection>
+	</resultMap>
+	<sql id="Base_Column_List">
+		coupon_id, type_id, coupon_type, coupon_name, price,
+		is_effective, total_count,
+		coupon_recieved,
+		coupon_used, users_suitable,
+		recieve_type, requirment, full_money, num_limit,
+		launch_stime,
+		launch_etime, activated, deleted, updated_date, created_date,
+		expiry_start_date,
+		expriy_end_date
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_coupon
+		where coupon_id = #{couponId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_coupon
+		where coupon_id =
+		#{couponId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.yilan.elantrip.domain.Coupon">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="couponId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_coupon (type_id, coupon_type, coupon_name,
+		price,
+		is_effective, total_count,
+		coupon_recieved, coupon_used,
+		users_suitable,
+		recieve_type, requirment, full_money,
+		num_limit,
+		launch_stime, launch_etime,
+		activated, deleted, updated_date,
+		created_date, expiry_start_date, expriy_end_date
+		)
+		values
+		(#{typeId,jdbcType=INTEGER}, #{couponType,jdbcType=INTEGER},
+		#{couponName,jdbcType=VARCHAR},
+		#{price,jdbcType=DOUBLE},
+		#{isEffective,jdbcType=INTEGER}, #{totalCount,jdbcType=INTEGER},
+		#{couponRecieved,jdbcType=INTEGER}, #{couponUsed,jdbcType=INTEGER},
+		#{usersSuitable,jdbcType=VARCHAR},
+		#{recieveType,jdbcType=VARCHAR},
+		#{requirment,jdbcType=INTEGER}, #{fullMoney,jdbcType=DOUBLE},
+		#{numLimit,jdbcType=INTEGER}, #{launchStime,jdbcType=DATE},
+		#{launchEtime,jdbcType=DATE},
+		#{activated,jdbcType=INTEGER},
+		#{deleted,jdbcType=INTEGER}, #{updatedDate,jdbcType=TIMESTAMP},
+		#{createdDate,jdbcType=TIMESTAMP},
+		#{expiryStartDate,jdbcType=TIMESTAMP},
+		#{expriyEndDate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.yilan.elantrip.domain.Coupon">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="couponId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_coupon
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="typeId != null">
+				type_id,
+			</if>
+			<if test="couponType != null">
+				coupon_type,
+			</if>
+			<if test="couponName != null">
+				coupon_name,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="isEffective != null">
+				is_effective,
+			</if>
+			<if test="totalCount != null">
+				total_count,
+			</if>
+			<if test="couponRecieved != null">
+				coupon_recieved,
+			</if>
+			<if test="couponUsed != null">
+				coupon_used,
+			</if>
+			<if test="usersSuitable != null">
+				users_suitable,
+			</if>
+			<if test="recieveType != null">
+				recieve_type,
+			</if>
+			<if test="requirment != null">
+				requirment,
+			</if>
+			<if test="fullMoney != null">
+				full_money,
+			</if>
+			<if test="numLimit != null">
+				num_limit,
+			</if>
+			<if test="launchStime != null">
+				launch_stime,
+			</if>
+			<if test="launchEtime != null">
+				launch_etime,
+			</if>
+			<if test="activated != null">
+				activated,
+			</if>
+			<if test="deleted != null">
+				deleted,
+			</if>
+			<if test="updatedDate != null">
+				updated_date,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="expiryStartDate != null">
+				expiry_start_date,
+			</if>
+			<if test="expriyEndDate != null">
+				expriy_end_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="typeId != null">
+				#{typeId,jdbcType=INTEGER},
+			</if>
+			<if test="couponType != null">
+				#{couponType,jdbcType=INTEGER},
+			</if>
+			<if test="couponName != null">
+				#{couponName,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=DOUBLE},
+			</if>
+			<if test="isEffective != null">
+				#{isEffective,jdbcType=INTEGER},
+			</if>
+			<if test="totalCount != null">
+				#{totalCount,jdbcType=INTEGER},
+			</if>
+			<if test="couponRecieved != null">
+				#{couponRecieved,jdbcType=INTEGER},
+			</if>
+			<if test="couponUsed != null">
+				#{couponUsed,jdbcType=INTEGER},
+			</if>
+			<if test="usersSuitable != null">
+				#{usersSuitable,jdbcType=VARCHAR},
+			</if>
+			<if test="recieveType != null">
+				#{recieveType,jdbcType=VARCHAR},
+			</if>
+			<if test="requirment != null">
+				#{requirment,jdbcType=INTEGER},
+			</if>
+			<if test="fullMoney != null">
+				#{fullMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="numLimit != null">
+				#{numLimit,jdbcType=INTEGER},
+			</if>
+			<if test="launchStime != null">
+				#{launchStime,jdbcType=DATE},
+			</if>
+			<if test="launchEtime != null">
+				#{launchEtime,jdbcType=DATE},
+			</if>
+			<if test="activated != null">
+				#{activated,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="updatedDate != null">
+				#{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="expiryStartDate != null">
+				#{expiryStartDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="expriyEndDate != null">
+				#{expriyEndDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.yilan.elantrip.domain.Coupon">
+		update t_coupon
+		<set>
+			<if test="typeId != null">
+				type_id = #{typeId,jdbcType=INTEGER},
+			</if>
+			<if test="couponType != null">
+				coupon_type = #{couponType,jdbcType=INTEGER},
+			</if>
+			<if test="couponName != null">
+				coupon_name = #{couponName,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=DOUBLE},
+			</if>
+			<if test="isEffective != null">
+				is_effective = #{isEffective,jdbcType=INTEGER},
+			</if>
+			<if test="totalCount != null">
+				total_count = #{totalCount,jdbcType=INTEGER},
+			</if>
+			<if test="couponRecieved != null">
+				coupon_recieved = #{couponRecieved,jdbcType=INTEGER},
+			</if>
+			<if test="couponUsed != null">
+				coupon_used = #{couponUsed,jdbcType=INTEGER},
+			</if>
+			<if test="usersSuitable != null">
+				users_suitable = #{usersSuitable,jdbcType=VARCHAR},
+			</if>
+			<if test="recieveType != null">
+				recieve_type = #{recieveType,jdbcType=VARCHAR},
+			</if>
+			<if test="requirment != null">
+				requirment = #{requirment,jdbcType=INTEGER},
+			</if>
+			<if test="fullMoney != null">
+				full_money = #{fullMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="numLimit != null">
+				num_limit = #{numLimit,jdbcType=INTEGER},
+			</if>
+			<if test="launchStime != null">
+				launch_stime = #{launchStime,jdbcType=DATE},
+			</if>
+			<if test="launchEtime != null">
+				launch_etime = #{launchEtime,jdbcType=DATE},
+			</if>
+			<if test="activated != null">
+				activated = #{activated,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				deleted = #{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="updatedDate != null">
+				updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="expiryStartDate != null">
+				expiry_start_date =
+				#{expiryStartDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="expriyEndDate != null">
+				expriy_end_date = #{expriyEndDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where coupon_id = #{couponId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.yilan.elantrip.domain.Coupon">
+		update t_coupon
+		set type_id = #{typeId,jdbcType=INTEGER},
+		coupon_type = #{couponType,jdbcType=INTEGER},
+		coupon_name =
+		#{couponName,jdbcType=VARCHAR},
+		price = #{price,jdbcType=DOUBLE},
+		is_effective = #{isEffective,jdbcType=INTEGER},
+		total_count =
+		#{totalCount,jdbcType=INTEGER},
+		coupon_recieved =
+		#{couponRecieved,jdbcType=INTEGER},
+		coupon_used =
+		#{couponUsed,jdbcType=INTEGER},
+		users_suitable =
+		#{usersSuitable,jdbcType=VARCHAR},
+		recieve_type =
+		#{recieveType,jdbcType=VARCHAR},
+		requirment =
+		#{requirment,jdbcType=INTEGER},
+		full_money =
+		#{fullMoney,jdbcType=DOUBLE},
+		num_limit = #{numLimit,jdbcType=INTEGER},
+		launch_stime = #{launchStime,jdbcType=DATE},
+		launch_etime =
+		#{launchEtime,jdbcType=DATE},
+		activated =
+		#{activated,jdbcType=INTEGER},
+		deleted = #{deleted,jdbcType=INTEGER},
+		updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+		created_date =
+		#{createdDate,jdbcType=TIMESTAMP},
+		expiry_start_date =
+		#{expiryStartDate,jdbcType=TIMESTAMP},
+		expriy_end_date =
+		#{expriyEndDate,jdbcType=TIMESTAMP}
+		where coupon_id =
+		#{couponId,jdbcType=INTEGER}
+	</update>
+	<select id="countTotal" resultType="java.lang.Integer">
+		SELECT count(*) FROM t_coupon
+		<where>
+			<if test="params.couponName!=null and params.couponName!=''">
+				and coupon_name like
+				"%"#{params.couponName,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="params.couponType!=null and params.couponType!=''">
+				and coupon_type = #{params.couponType,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectCouponList" resultMap="BaseResultMap">
+		SELECT
+		coupon_id,
+		coupon_type,
+		coupon_name,
+		price,
+		created_date,
+		expiry_start_date,
+		expriy_end_date,
+		total_count,
+		coupon_recieved,
+		coupon_used
+		FROM
+		t_coupon
+		<where>
+			<if test="params.couponName!=null and params.couponName!=''">
+				and coupon_name like
+				"%"#{params.couponName,jdbcType=VARCHAR}"%"
+			</if>
+			<if test="params.couponType!=null and params.couponType!=''">
+				and coupon_type = #{params.couponType,jdbcType=INTEGER}
+			</if>
+		</where>
+		limit #{startNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	<select id="selectCouponDetail" resultMap="RScoupon">  
+		SELECT
+		c.coupon_type,
+		c.coupon_name,
+		c.price,
+		c.total_count,
+		c.requirment,
+		c.expiry_start_date,
+		c.expriy_end_date,
+		pt.name as prodType,
+		cd.user_coupon_id,
+		cd.user_id,
+		cd.coupo_id,
+		cd.order_num,
+		cd.created_date,
+		cd.used_date,
+		pt.activated
+		FROM
+		t_coupon c,
+		t_coupon_details cd,
+		t_prod_type pt
+		where
+		c.coupon_id=cd.coupo_id
+		and c.type_id = pt.prod_type_id
+		and c.coupon_id=#{couponId}
+	</select>
+</mapper>

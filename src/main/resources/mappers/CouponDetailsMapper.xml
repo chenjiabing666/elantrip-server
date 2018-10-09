@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.CouponDetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.CouponDetails" >
+    <id column="user_coupon_id" property="userCouponId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="coupo_id" property="coupoId" jdbcType="INTEGER" />
+    <result column="order_num" property="orderNum" jdbcType="INTEGER" />
+    <result column="activated" property="activated" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="used_date" property="usedDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_coupon_id, user_id, coupo_id, order_num, activated, deleted, updated_date, created_date, 
+    used_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_coupon_details
+    where user_coupon_id = #{userCouponId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_coupon_details
+    where user_coupon_id = #{userCouponId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.CouponDetails" >
+    insert into t_coupon_details (user_coupon_id, user_id, coupo_id, 
+      order_num, activated, deleted, 
+      updated_date, created_date, used_date
+      )
+    values (#{userCouponId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{coupoId,jdbcType=INTEGER}, 
+      #{orderNum,jdbcType=INTEGER}, #{activated,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, 
+      #{updatedDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP}, #{usedDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.CouponDetails" >
+    insert into t_coupon_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userCouponId != null" >
+        user_coupon_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="coupoId != null" >
+        coupo_id,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+      <if test="usedDate != null" >
+        used_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userCouponId != null" >
+        #{userCouponId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="coupoId != null" >
+        #{coupoId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usedDate != null" >
+        #{usedDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.CouponDetails" >
+    update t_coupon_details
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="coupoId != null" >
+        coupo_id = #{coupoId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usedDate != null" >
+        used_date = #{usedDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_coupon_id = #{userCouponId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.CouponDetails" >
+    update t_coupon_details
+    set user_id = #{userId,jdbcType=INTEGER},
+      coupo_id = #{coupoId,jdbcType=INTEGER},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      activated = #{activated,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
+      used_date = #{usedDate,jdbcType=TIMESTAMP}
+    where user_coupon_id = #{userCouponId,jdbcType=INTEGER}
+  </update>
+</mapper>

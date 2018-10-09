@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.InterAppMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.InterApp" >
+    <id column="apply_id" property="applyId" jdbcType="INTEGER" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="employees" property="employees" jdbcType="INTEGER" />
+    <result column="application_name" property="applicationName" jdbcType="VARCHAR" />
+    <result column="legal_person" property="legalPerson" jdbcType="VARCHAR" />
+    <result column="tax_num" property="taxNum" jdbcType="VARCHAR" />
+    <result column="level_id" property="levelId" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="eMail" jdbcType="VARCHAR" />
+    <result column="company_url" property="companyUrl" jdbcType="VARCHAR" />
+    <result column="business" property="business" jdbcType="VARCHAR" />
+    <result column="certification" property="certification" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="addr" property="addr" jdbcType="VARCHAR" />
+    <result column="agreement" property="agreement" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="activated" property="activated" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    apply_id, company_name, company_id, employees, application_name, legal_person, tax_num, 
+    level_id, phone, email, company_url, business, certification, remark, addr, agreement, 
+    state, activated, deleted, updated_date, created_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_inter_apply
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_inter_apply
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.InterApp" >
+    <selectKey resultType="java.lang.Integer" keyProperty="applyId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_inter_apply (company_name, company_id, employees, 
+      application_name, legal_person, tax_num, 
+      level_id, phone, email, 
+      company_url, business, certification, 
+      remark, addr, agreement, 
+      state, activated, deleted, 
+      updated_date, created_date)
+    values (#{companyName,jdbcType=VARCHAR}, #{companyId,jdbcType=VARCHAR}, #{employees,jdbcType=INTEGER}, 
+      #{applicationName,jdbcType=VARCHAR}, #{legalPerson,jdbcType=VARCHAR}, #{taxNum,jdbcType=VARCHAR}, 
+      #{levelId,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{eMail,jdbcType=VARCHAR}, 
+      #{companyUrl,jdbcType=VARCHAR}, #{business,jdbcType=VARCHAR}, #{certification,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{agreement,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{activated,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, 
+      #{updatedDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.InterApp" >
+    <selectKey resultType="java.lang.Integer" keyProperty="applyId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_inter_apply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="employees != null" >
+        employees,
+      </if>
+      <if test="applicationName != null" >
+        application_name,
+      </if>
+      <if test="legalPerson != null" >
+        legal_person,
+      </if>
+      <if test="taxNum != null" >
+        tax_num,
+      </if>
+      <if test="levelId != null" >
+        level_id,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="eMail != null" >
+        email,
+      </if>
+      <if test="companyUrl != null" >
+        company_url,
+      </if>
+      <if test="business != null" >
+        business,
+      </if>
+      <if test="certification != null" >
+        certification,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="addr != null" >
+        addr,
+      </if>
+      <if test="agreement != null" >
+        agreement,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="employees != null" >
+        #{employees,jdbcType=INTEGER},
+      </if>
+      <if test="applicationName != null" >
+        #{applicationName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null" >
+        #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="taxNum != null" >
+        #{taxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="levelId != null" >
+        #{levelId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="eMail != null" >
+        #{eMail,jdbcType=VARCHAR},
+      </if>
+      <if test="companyUrl != null" >
+        #{companyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="business != null" >
+        #{business,jdbcType=VARCHAR},
+      </if>
+      <if test="certification != null" >
+        #{certification,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="agreement != null" >
+        #{agreement,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.InterApp" >
+    update t_inter_apply
+    <set >
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="employees != null" >
+        employees = #{employees,jdbcType=INTEGER},
+      </if>
+      <if test="applicationName != null" >
+        application_name = #{applicationName,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null" >
+        legal_person = #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="taxNum != null" >
+        tax_num = #{taxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="levelId != null" >
+        level_id = #{levelId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="eMail != null" >
+        email = #{eMail,jdbcType=VARCHAR},
+      </if>
+      <if test="companyUrl != null" >
+        company_url = #{companyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="business != null" >
+        business = #{business,jdbcType=VARCHAR},
+      </if>
+      <if test="certification != null" >
+        certification = #{certification,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="agreement != null" >
+        agreement = #{agreement,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.InterApp" >
+    update t_inter_apply
+    set company_name = #{companyName,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=VARCHAR},
+      employees = #{employees,jdbcType=INTEGER},
+      application_name = #{applicationName,jdbcType=VARCHAR},
+      legal_person = #{legalPerson,jdbcType=VARCHAR},
+      tax_num = #{taxNum,jdbcType=VARCHAR},
+      level_id = #{levelId,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{eMail,jdbcType=VARCHAR},
+      company_url = #{companyUrl,jdbcType=VARCHAR},
+      business = #{business,jdbcType=VARCHAR},
+      certification = #{certification,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      addr = #{addr,jdbcType=VARCHAR},
+      agreement = #{agreement,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      activated = #{activated,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
+    where apply_id = #{applyId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getInterList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select company_name,email,application_name,phone,level_id,state,created_date,remark
+    from t_inter_apply
+    limit #{startNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+    <select id="countTotal" resultType="java.lang.Integer">
+		select count(company_id) from
+		t_inter_apply
+  </select>
+</mapper>

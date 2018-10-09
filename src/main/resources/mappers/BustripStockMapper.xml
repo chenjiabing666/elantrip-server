@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.BustripStockMapper" >
+  <resultMap id="BaseResultMap" type="com.yilan.elantrip.domain.BustripStock" >
+    <id column="stock_id" property="stockId" jdbcType="INTEGER" />
+    <result column="bustrip_id" property="bustripId" jdbcType="INTEGER" />
+    <result column="stock_date" property="stockDate" jdbcType="DATE" />
+    <result column="month" property="month" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="VARCHAR" />
+    <result column="day" property="day" jdbcType="VARCHAR" />
+    <result column="total" property="total" jdbcType="INTEGER" />
+    <result column="sold" property="sold" jdbcType="INTEGER" />
+    <result column="down_price" property="downPrice" jdbcType="DOUBLE" />
+    <result column="p_type" property="pType" jdbcType="INTEGER" />
+    <result column="activated" property="activated" jdbcType="INTEGER" />
+    <result column="deleted" property="deleted" jdbcType="INTEGER" />
+    <result column="updated_date" property="updatedDate" jdbcType="TIMESTAMP" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    stock_id, bustrip_id, stock_date, month, year, day, total, sold, down_price, p_type, 
+    activated, deleted, updated_date, created_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_bustrip_stock
+    where stock_id = #{stockId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_bustrip_stock
+    where stock_id = #{stockId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yilan.elantrip.domain.BustripStock" >
+    <selectKey resultType="java.lang.Integer" keyProperty="bustripId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_bustrip_stock (stock_id, stock_date, month, 
+      year, day, total, sold, 
+      down_price, p_type, activated, 
+      deleted, updated_date, created_date
+      )
+    values (#{stockId,jdbcType=INTEGER}, #{stockDate,jdbcType=DATE}, #{month,jdbcType=VARCHAR}, 
+      #{year,jdbcType=VARCHAR}, #{day,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, #{sold,jdbcType=INTEGER}, 
+      #{downPrice,jdbcType=DOUBLE}, #{pType,jdbcType=INTEGER}, #{activated,jdbcType=INTEGER}, 
+      #{deleted,jdbcType=INTEGER}, #{updatedDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yilan.elantrip.domain.BustripStock" >
+    <selectKey resultType="java.lang.Integer" keyProperty="bustripId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_bustrip_stock
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockId != null" >
+        stock_id,
+      </if>
+      <if test="stockDate != null" >
+        stock_date,
+      </if>
+      <if test="month != null" >
+        month,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="day != null" >
+        day,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="sold != null" >
+        sold,
+      </if>
+      <if test="downPrice != null" >
+        down_price,
+      </if>
+      <if test="pType != null" >
+        p_type,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
+      <if test="updatedDate != null" >
+        updated_date,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockId != null" >
+        #{stockId,jdbcType=INTEGER},
+      </if>
+      <if test="stockDate != null" >
+        #{stockDate,jdbcType=DATE},
+      </if>
+      <if test="month != null" >
+        #{month,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="day != null" >
+        #{day,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=INTEGER},
+      </if>
+      <if test="sold != null" >
+        #{sold,jdbcType=INTEGER},
+      </if>
+      <if test="downPrice != null" >
+        #{downPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="pType != null" >
+        #{pType,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yilan.elantrip.domain.BustripStock" >
+    update t_bustrip_stock
+    <set >
+      <if test="bustripId != null" >
+        bustrip_id = #{bustripId,jdbcType=INTEGER},
+      </if>
+      <if test="stockDate != null" >
+        stock_date = #{stockDate,jdbcType=DATE},
+      </if>
+      <if test="month != null" >
+        month = #{month,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="day != null" >
+        day = #{day,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=INTEGER},
+      </if>
+      <if test="sold != null" >
+        sold = #{sold,jdbcType=INTEGER},
+      </if>
+      <if test="downPrice != null" >
+        down_price = #{downPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="pType != null" >
+        p_type = #{pType,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updatedDate != null" >
+        updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where stock_id = #{stockId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yilan.elantrip.domain.BustripStock" >
+    update t_bustrip_stock
+    set bustrip_id = #{bustripId,jdbcType=INTEGER},
+      stock_date = #{stockDate,jdbcType=DATE},
+      month = #{month,jdbcType=VARCHAR},
+      year = #{year,jdbcType=VARCHAR},
+      day = #{day,jdbcType=VARCHAR},
+      total = #{total,jdbcType=INTEGER},
+      sold = #{sold,jdbcType=INTEGER},
+      down_price = #{downPrice,jdbcType=DOUBLE},
+      p_type = #{pType,jdbcType=INTEGER},
+      activated = #{activated,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
+    where stock_id = #{stockId,jdbcType=INTEGER}
+  </update>
+  
+    <insert id="addBustripNodes" parameterType="com.yilan.elantrip.domain.BustripNode">
+     insert into t_bustrip_node(node_code, bustrip_id) values
+     <foreach collection="bustripNodes" item="bustripNode" separator=",">
+     (#{bustripNode.nodeCode,jdbcType=VARCHAR},#{bustripNode.bustripId,jdbcType=VARCHAR})
+     </foreach>
+    </insert>
+    
+    
+    
+    
+    
+    <update id="modifyBustripStock" parameterType="com.yilan.elantrip.domain.BustripStock">
+        update t_bustrip_stock
+        <trim prefix="set" suffixOverrides=";">
+            <trim prefix="sold =case" suffix="end,">
+                 <foreach collection="bustripStocks" item="bustripStock" index="index">
+                     <if test="bustripStock.sold !=null">
+                         when stock_id=#{bustripStock.stockId} then #{bustripStock.sold}
+                     </if>
+                     <if test="bustripStock.sold == null">
+                         when stock_id=#{bustripStock.stockId} then t_bustrip_stock.sold
+                     </if>
+                 </foreach>
+            </trim>
+            <trim prefix="downPrice = case" suffix="end,">
+                 <foreach collection="bustripStocks" item="bustripStock" index="index">
+                     <if test="bustripStock.downPrice !=null">
+                         when stock_id=#{bustripStock.stockId} then #{bustripStock.downPrice}
+                     </if>
+                     <if test="bustripStock.downPrice == null">
+                         when stock_id=#{bustripStock.stockId} then t_bustrip_stock.down_price
+                     </if>
+                 </foreach>
+            </trim>
+            <trim prefix="total = case" suffix="end,">
+                 <foreach collection="bustripStocks" item="bustripStock" index="index">
+                     <if test="bustripStock.total!=null">
+                         when stock_id=#{bustripStock.stockId} then #{bustripStock.total}
+                     </if>
+                     <if test="bustripStock.total == null">
+                         when stock_id=#{bustripStock.stockId} then t_bustrip_stock.total
+                     </if>
+                 </foreach>
+            </trim>
+        </trim>
+        where stock_date in
+        <foreach collection="bustripStocks" index="index" item="bustripStock" separator="," open="(" close=")">
+            #{bustripStock.stock_date,jdbcType=DATE}
+        </foreach>
+    </update>
+    
+</mapper>

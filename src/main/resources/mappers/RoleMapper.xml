@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yilan.elantrip.dao.RoleMapper">
+	<resultMap id="BaseResultMap"
+		type="com.yilan.elantrip.domain.Role">
+		<id column="role_id" property="roleId" jdbcType="INTEGER" />
+		<result column="role_name" property="roleName"
+			jdbcType="VARCHAR" />
+		<result column="dept_name" property="deptName"
+			jdbcType="VARCHAR" />
+		<result column="description" property="description"
+			jdbcType="VARCHAR" />
+		<result column="activated" property="activated"
+			jdbcType="INTEGER" />
+		<result column="deleted" property="deleted" jdbcType="INTEGER" />
+		<result column="updated_date" property="updatedDate"
+			jdbcType="TIMESTAMP" />
+		<result column="created_date" property="createdDate"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		role_id, role_name, dept_name, description, activated, deleted, updated_date,
+		created_date
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_role
+		where role_id = #{roleId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_role
+		where role_id = #{roleId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.yilan.elantrip.domain.Role">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="roleId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_role (role_name, dept_name, description,
+		activated, deleted, updated_date,
+		created_date)
+		values (#{roleName,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR},
+		#{activated,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, #{updatedDate,jdbcType=TIMESTAMP},
+		#{createdDate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.yilan.elantrip.domain.Role">
+		<selectKey resultType="java.lang.Integer"
+			keyProperty="roleId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roleName != null">
+				role_name,
+			</if>
+			<if test="deptName != null">
+				dept_name,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="activated != null">
+				activated,
+			</if>
+			<if test="deleted != null">
+				deleted,
+			</if>
+			<if test="updatedDate != null">
+				updated_date,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="roleName != null">
+				#{roleName,jdbcType=VARCHAR},
+			</if>
+			<if test="deptName != null">
+				#{deptName,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="activated != null">
+				#{activated,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				#{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="updatedDate != null">
+				#{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.yilan.elantrip.domain.Role">
+		update t_role
+		<set>
+			<if test="roleName != null">
+				role_name = #{roleName,jdbcType=VARCHAR},
+			</if>
+			<if test="deptName != null">
+				dept_name = #{deptName,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="activated != null">
+				activated = #{activated,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				deleted = #{deleted,jdbcType=INTEGER},
+			</if>
+			<if test="updatedDate != null">
+				updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where role_id = #{roleId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.yilan.elantrip.domain.Role">
+		update t_role
+		set role_name = #{roleName,jdbcType=VARCHAR},
+		dept_name = #{deptName,jdbcType=VARCHAR},
+		description = #{description,jdbcType=VARCHAR},
+		activated = #{activated,jdbcType=INTEGER},
+		deleted = #{deleted,jdbcType=INTEGER},
+		updated_date = #{updatedDate,jdbcType=TIMESTAMP},
+		created_date = #{createdDate,jdbcType=TIMESTAMP}
+		where role_id = #{roleId,jdbcType=INTEGER}
+	</update>
+	
+	<select id="countTotal" resultType="java.lang.Integer">
+		SELECT count(*) FROM t_role
+		<where>
+			<if test="params.roleName!=null and params.roleName!=''">
+				and role_name like
+				"%"#{params.roleName,jdbcType=VARCHAR}"%"
+			</if>
+		</where> 
+	</select>
+
+	<select id="selectRoleList" resultMap="BaseResultMap">
+		SELECT
+		role_id,
+		role_name,
+		dept_name,
+		description,
+		created_date,
+		activated
+		FROM t_role 
+		<where>
+			<if test="params.roleName!=null and params.roleName!=''">
+				and role_name like
+				"%"#{params.roleName,jdbcType=VARCHAR}"%"
+			</if>
+		</where>
+		limit #{startNum,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+	</select>
+	
+    <select id="getRoleNameList" resultType="java.lang.String">
+		SELECT
+		role_name
+		FROM t_role
+	</select>
+</mapper>
